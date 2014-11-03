@@ -1,0 +1,22 @@
+20141103 4:30pm Filmon
+========================
+This is the starting platform for cake php with db
+-------------------------------------------------
+1. The directory "dbproject" is supposed to be inside /var/www/html
+and if you have installed cake php correctly it should run like this
+on your browser
+
+==>localhost/dbproject or 127.0.0.1/dbproject
+
+2. I have created the db by importing from access, but the relationship between
+tables is lost and I will update it soon.
+you need to import the database "TAG_data.sql" using "phpmyadmin"
+
+3. organize the pages this way
+---------------------------------
+To change the content of this page, edit: APP/View/Pages/home.ctp.
+To change its layout, edit: APP/View/Layouts/default.ctp.
+You can also add some CSS styles for your pages at: APP/webroot/css.
+
+Thus: home page should be in APP/View/Pages/home.ctp (I haven't tried, you can check).
+=============================================================================
