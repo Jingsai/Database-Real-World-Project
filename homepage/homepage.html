@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Schneider Electric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="jQuery Responsive Carousel - Owl Carusel">
+    <meta name="author" content="Bartosz Wojciechowski">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href="./css/bootstrapTheme.css" rel="stylesheet">
+    <link href="./css/custom.css" rel="stylesheet">
+
+    <!-- Owl Carousel Assets -->
+    <link href="./css/owl.carousel.css" rel="stylesheet">
+    <link href="./css/owl.theme.css" rel="stylesheet">
+
+    <link href="./css/google-code-prettify/prettify.css" rel="stylesheet">
+  
+    <!-- Le fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="image/favicon.ico">
+  </head>
+  <body>
+
+      <div id="top-nav" class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li><a href="">Login</a></li>
+              <li><a href="">Register</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">About</a></li>
+            </ul>
+            <ul class="nav pull-left">
+              <li><img src="image/se_logo.gif"></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div id="title">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <h1>Schneider Electric</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div id="demo">
+        <div class="container">
+          <div class="row">
+            <div class="span12">
+              <div id="owl-demo" class="owl-carousel">
+
+                <div class="item"><img src="image/slide1.png" alt="The Last of us"></div>
+                <div class="item"><img src="image/slide2.jpg" alt="GTA V"></div>
+                <div class="item"><img src="image/slide3.png" alt="Mirror Edge"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  
+
+
+    <div id="footer">
+
+      <footer>
+        <!-- <p class="pull-right"><a href="#">Back to top</a></p>  -->
+        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+      
+    </div>
+
+
+    <script src="./css/jquery-1.9.1.min.js"></script> 
+    <script src="./css/owl.carousel.js"></script>
+
+
+    <!-- Demo -->
+
+    <style>
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    </style>
+
+
+    <script>
+    $(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+
+      navigation : true,
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem : true
+
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+
+      });
+    });
+    </script>
+
+    <script src=".css/js/bootstrap-collapse.js"></script>
+    <script src=".css/js/bootstrap-transition.js"></script>
+    <script src=".css/bootstrap-tab.js"></script>
+
+    <script src=".css/google-code-prettify/prettify.js"></script>
+    <script src=".css/application.js"></script>
+
+  </body>
+</html>
