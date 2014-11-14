@@ -1,0 +1,24 @@
+1.
+alter table complexity
+add primary key(complexity)
+
+2.
+ALTER TABLE `TAG Member Names` 
+ADD PRIMARY KEY ( `TAG Member` ) 
+
+3. 
+ALTER TABLE `Tag Number` 
+ADD PRIMARY KEY ( `NO` )  
+
+4.ALTER TABLE `Applied FO` 
+ADD PRIMARY KEY ( ID ) 
+
+5. ALTER TABLE `Revision`
+ ADD FOREIGN KEY ( `Complexity` )
+ REFERENCES `complexity` ( `complexity` ) 
+
+6.ALTER TABLE `Revision` 
+ADD FOREIGN KEY ( `TAG Member` ) 
+REFERENCES `TAG Member Names` ( `TAG Member` ) 
+
+
