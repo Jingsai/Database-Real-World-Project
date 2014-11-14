@@ -31,4 +31,71 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	//public $components = array('DebugKit.Toolbar');
+	
+
+	/*public $components = array(
+    'Session',
+    'Auth' => array(
+        'loginRedirect' => array('controller' => 'flights', 'action' => 'index'),
+        'logoutRedirect' => array(
+            'controller' => 'Pages',
+            'action' => 'index'
+        ),
+        'authorize' => array('Controller') 
+	    )
+	);*/
+	/*public function beforeFilter() {
+    parent::beforeFilter();
+    // Allow users to register and logout.
+    $this->Auth->allow('login', 'logout','home');
+	}*/
+
+
+    public $helpers = array(
+        'Session',
+        'Html' => array('className' => 'BoostCake.BoostCakeHtml'),
+        'Form' => array('className' => 'BoostCake.BoostCakeForm'),
+        'Paginator' => array('className' => 'BoostCake.BoostCakePaginator'),
+    );
+
+    public $components = array(
+    'DebugKit'
+    'Session',
+    'Auth' => array(
+        'loginRedirect' => array('controller' => 'flights', 'action' => 'index'),
+        'logoutRedirect' => array(
+            'controller' => 'staticPages',
+            'action' => 'index'
+        ),
+        'authError' => 'You must be logged in to view this page.',
+        'loginError' => 'Invalid username or Password.', 
+        'authorize' => array('Controller') 
+        )
+    );
+    public function beforeFilter() {
+    parent::beforeFilter();
+    // Allow users to register and logout.
+    $this->Auth->allow('login', 'logout','home');
+    }
+
+    
+
+    public function isAuthorized($user) {
+        // Admin can access every action
+        if (isset($user['type']) && $user['type'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
+
+    public function loggedIn(){
+        if($this->Auth->user){
+            return true;
+        }
+        return false;
+    }
+	
 }
