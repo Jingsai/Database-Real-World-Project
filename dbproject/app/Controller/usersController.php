@@ -23,9 +23,14 @@ class UsersController extends AppController {
          
         // if we get the post information, try to authenticate
         if ($this->request->is('post')) {
+        //test
+        //$user = $this->User->findByUsername($this->request->data['User']['username']);
+         $user = $this->User->findByUsername($this->request->data['User']['username']);
+        //test
             if ($this->Auth->login()) {
                 $this->Session->setFlash(__('Welcome, '. $this->Auth->user('username')));
-                $this->redirect($this->Auth->redirectUrl());
+                return $this->redirect(array('controller' => 'users', 'action' => 'index'));
+                //$this->redirect($this->Auth->redirectUrl());
             } else {
                 $this->Session->setFlash(__('Invalid username or password'));
             }
