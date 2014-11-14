@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2014 at 04:17 PM
+-- Generation Time: Nov 14, 2014 at 12:19 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -23,14 +23,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `administration`
+--
+
+CREATE TABLE IF NOT EXISTS `administration` (
+  `TAG` varchar(100) DEFAULT NULL,
+  `After Order` varchar(100) DEFAULT NULL,
+  `qtc` varchar(100) DEFAULT NULL,
+  `passwords` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `administration`
+--
+
+INSERT INTO `administration` (`TAG`, `After Order`, `qtc`, `passwords`) VALUES
+('bliven', 'tagorder', 'ctq', 'passwords');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Applied FO`
 --
 
 CREATE TABLE IF NOT EXISTS `Applied FO` (
-  `ID` int(11) DEFAULT NULL,
+  `ID` int(11) NOT NULL DEFAULT '0',
   `NO` int(11) DEFAULT NULL,
   `FO Number Applied To` varchar(100) DEFAULT NULL,
-  `Notes to Next Engineer` tinytext
+  `Notes to Next Engineer` tinytext,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,6 +120,30 @@ INSERT INTO `Backup` (`ID`, `dtBackup`, `TagMember`, `BackupTo`) VALUES
 (24, '2013-06-07', 'Walter Smitty', 'Weekly Backup'),
 (25, '2013-06-28', 'Walter Smitty', 'Monthly Backup'),
 (26, '2013-06-28', 'Walter Smitty', 'Weekly Backup');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complexity`
+--
+
+CREATE TABLE IF NOT EXISTS `complexity` (
+  `complexity` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`complexity`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `complexity`
+--
+
+INSERT INTO `complexity` (`complexity`) VALUES
+('A'),
+('B'),
+('C'),
+('D'),
+('E'),
+('F'),
+('G');
 
 -- --------------------------------------------------------
 
@@ -284,7 +329,9 @@ CREATE TABLE IF NOT EXISTS `Revision` (
   `revision obsolete` char(1) NOT NULL,
   `Under Current Revision` char(1) NOT NULL,
   `TAG Member` int(11) DEFAULT NULL,
-  `country` varchar(100) DEFAULT NULL
+  `country` varchar(100) DEFAULT NULL,
+  KEY `Complexity` (`Complexity`),
+  KEY `TAG Member` (`TAG Member`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -310,7 +357,7 @@ INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRI
 (5519, 0, 28, 0, 0, '2012-11-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, 'Used on factory order 31709696, UCSD Campus Infrastructure Keylocks.', '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US'),
 (5519, 1, 28, 0, 0, '2012-11-13 00:00:00', 313.28, 74.28, 62.24, 449.8, NULL, NULL, 'Used on factory order 31709696, UCSD Campus Infrastructure Keylocks.', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5520, 0, 0, 0, 0, '2012-11-13 00:00:00', 0, 148.56, 248.96, 397.52, NULL, 'F', NULL, '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
-(5520, 0, 0, 0, 0, '2012-11-13 00:00:00', 0, 148.56, 248.96, 397.52, NULL, 'F', NULL, '0', '0', '1', '0', '0', 12, '0', '1', 1, 'US'),
+(5520, 1, 0, 0, 0, '2012-11-13 00:00:00', 0, 148.56, 248.96, 397.52, NULL, 'F', NULL, '0', '0', '1', '0', '0', 12, '0', '1', 1, 'US'),
 (5521, 0, 0, 0, 0, '2012-11-14 00:00:00', 920, 74.28, 124.48, 1118.76, NULL, 'B', 'Used on Q2C # 32476169 FHR East Main Sub', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5522, 0, 0, 0, 0, '2012-11-14 00:00:00', 1483.61, 297.12, 62.24, 1842.97, 'Price is per bay.', 'C', 'Used on f.o. 30138784-024, POLB Pier G Berth', '0', '0', '1', '0', '0', 24, '1', '0', 14, 'US'),
 (5534, 0, 15, 0, 0, '2012-11-29 00:00:00', 3595.73, 148.56, 248.96, 3993.25, NULL, 'F', 'TAG is for Q2C # 32421466, Ridley Terminal Project. Includes factory labor and Engineering time.', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
@@ -392,7 +439,7 @@ INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRI
 (5582, 0, 0, 0, 0, '2013-01-09 00:00:00', 0, 0, 1244.8, 1244.8, NULL, 'C', 'This TAG is for Engineering time for customer changes', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5583, 0, 0, 0, 0, '2013-01-09 00:00:00', 0, 0, 0, 0, NULL, 'A', NULL, '1', '1', '0', '0', '0', 12, '0', '0', 13, 'US'),
 (5584, 0, 20, 0, 0, '2013-01-10 00:00:00', 3228, 148.56, 124.48, 3501.04, NULL, 'F', 'Q2C 32656622, Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
-(5584, 0, 0, 0, 0, '2013-01-10 00:00:00', 3228, 148.56, 124.48, 3501.04, NULL, NULL, 'Q2C 32656622 Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '1', 1, 'US'),
+(5584, 1, 0, 0, 0, '2013-01-10 00:00:00', 3228, 148.56, 124.48, 3501.04, NULL, NULL, 'Q2C 32656622 Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '1', 1, 'US'),
 (5585, 0, 20, 0, 0, '2013-01-10 00:00:00', 7604, 148.56, 124.48, 7877.04, NULL, 'F', 'Q2C 32656622, Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5586, 0, 20, 0, 0, '2013-01-10 00:00:00', 1526, 148.56, 124.48, 1799.04, NULL, 'F', 'Q2C 32656622, Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5587, 0, 20, 0, 0, '2013-01-10 00:00:00', 225.76, 148.56, 124.48, 498.8, NULL, 'C', 'Q2C 32656622, Queenston Mining', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
@@ -1098,9 +1145,10 @@ INSERT INTO `Switchboard Items` (`SwitchboardID`, `ItemNumber`, `ItemText`, `Com
 --
 
 CREATE TABLE IF NOT EXISTS `TAG Member Names` (
-  `TAG Member` int(11) DEFAULT NULL,
+  `TAG Member` int(11) NOT NULL DEFAULT '0',
   `Name` varchar(100) DEFAULT NULL,
-  `Current employee` char(1) NOT NULL
+  `Current employee` char(1) NOT NULL,
+  PRIMARY KEY (`TAG Member`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1127,9 +1175,10 @@ INSERT INTO `TAG Member Names` (`TAG Member`, `Name`, `Current employee`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Tag Number` (
-  `NO` int(11) DEFAULT NULL,
+  `NO` int(11) NOT NULL DEFAULT '0',
   `DESCRIPTION` varchar(510) DEFAULT NULL,
-  `Sub Category` varchar(100) DEFAULT NULL
+  `Sub Category` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1411,6 +1460,34 @@ INSERT INTO `Tag Number` (`NO`, `DESCRIPTION`, `Sub Category`) VALUES
 (5871, 'This Tag is for a close coupled connection to a Powercast Transformer, 2000KVA. This assembly to be used for a 63Ka line-up. Transition is similar to 46006-368. This is a 15Kv N3R Walkin line-up.', 'other'),
 (5872, 'This TAG is for the Crompton AC Voltmeter, part number 007-05GA-PZUA-C7', 'Misc Electrical'),
 (5873, 'This TAG is for the Automation NTH SCH-Independence Panels Control Panels. Automation NTH will provide the relay cabinet and internal wiring. Engineering and drawings to be completed by Schneider Electric.', 'Enclosure'),
+(5874, 'This Tag is for the Automation NTH SCH-Independence Panels Control Panels. Automation NTH will provide the relay cabinet and internal wiring. Engineering and drawing to be completed by Schneider Electric. Subsation E & F panel #2', 'Enclosure'),
+(5875, 'This TAG is for the Automation NTH SCH-Independence Panels Control Panels. Automation NTH will provide the relay cabinet and internal wiring. Engineering and drawings to be completd by Schneider electric. Substation E panel #5', 'Enclosure'),
+(5876, 'This TAG is for the Automation NTh Rack Mount Enclosure w/shelf', 'Enclosure'),
+(5877, 'This TAG is for the Automation NTH (4) Door Terminal Cabinet', 'Enclosure'),
+(5878, 'VAMP 255 Feeder/Motor Manager Relay; 1/5A current for O/C Phase and Ground Fault with vootage, and Arc Flash detection 40; 265Vac/dc control voltage, Modbus communication interface', 'Relays'),
+(5879, 'This is a TAG for 1200MCM to 2500MCM cables maximum 3 cables per phase. Special termination lug pad requried. Metal-Clad product selector does not have a selection larger than 1000MCM. This is for a one (1) high only', 'other'),
+(5880, 'This TAG is for the device panel 46004-431-02 for the A & B position in a blank cell', 'Barrier'),
+(5881, 'This TAG is for the Remote CPT fuse drawout assembly and compartment. This is for two (2) fuse assembly for a single phase remote CPT', 'other'),
+(5882, 'This TAG is for Engineering time for additional relaying requirements due to the utility specification changes', 'Eng Time'),
+(5883, 'This TAG is for 40 hours of Engineering time', 'Eng Time'),
+(5884, 'This TAG is for a Auto/Manual switch 24205B', 'Switches'),
+(5885, 'This TAG is for a type 24 Electro Switch similar to 24205B except to be Key Lockable', 'Switches'),
+(5886, 'This TAG is for a Sentron PAC3200, part number 7KM2112-0BA00-3AA0 TNIP', 'Metering'),
+(5887, 'This TAG is for a Woodward Syncroising unit, part number SPM-D11/LSXR 8440-1666', 'Metering'),
+(5888, 'This TAG is for a Woodward Syncronising Unit. Part number SPM-D10/NYB 8440-1435', 'Metering'),
+(5889, 'This TAG is for a Woodward Syncronising Unit, part number SPM-D10/NYB8440-1435', 'Metering'),
+(5890, 'This TAG is for A Woodward Syncronising Unit, part number SPM-D10/XN 8440-1668', 'Metering'),
+(5891, 'This TAG is for 36.0 wide transition from Metal-Clad to HVL/cc. Transition includes the frame assembly, bussing and Engineering design time', 'Transitions'),
+(5892, 'This TAG is for a "pull box" on the Metal-Clad Transition to the HVL/cc. Work with TAG 5891.', 'other'),
+(5893, 'This TAG is an Auxiliary relay CAD32G7', 'Relays'),
+(5894, 'This TAG is for a relay, on delay tinimg, CMOS IC Circuit, 0.1% repeat accuracy, 5 timing ranges covering .05 seconds to 999 minutes, thumbwheel Adjustable, part number 9050JCK60V20, 8501NR52 Socket.', 'other'),
+(5895, 'This TAG is for the breaker wiring to have, 1) Close Coil Monitor, 2) spring Charge Indication, 3) Trip Coil Monitor', 'Misc Electrical'),
+(5896, 'This TAG is for a LIPA Metering section, 15Kv, special 54.0 wide bay, provisions for bar type Ct''s, provisions for (2) 250KCML/ph, 1.25 PVC, (2) Lexan barriers and VT barriers', 'other'),
+(5897, 'This TAG is for a change order which is for a quantity of (4) Electroswitch catalog number 2446D, also included is 24 hours Engineering time.', 'Misc Electrical'),
+(5898, 'This TAG is for an Auxiliary relay, 120vac, Part number KUEP11A35120', 'Relays'),
+(5899, 'This TAG is for a relay, 62TDE, 120VAC, 10-100 seconds, Part number is 7014AD', 'Relays'),
+(5900, 'This is a "generic" TAG for 9001KT38 LED type light. The nameplate and cap color is to be determined at time of engineering.', 'Lights'),
+(5901, 'This TAG is for a Metal-clad, 5/ 15Kv, N3R Walk-in assembly connection to the primary side of a 3000KAV "liquid filled" from the Metal-Clad main bus tansformer. This transition will 36.0 wide with a 3.0 throat.', 'Transitions'),
 (5902, 'This TAG is for MiCom relay for Directional/Non-Directional Overcurrent and Directional/Non-Directional Earth Fault relay. Part number P127BA0Z112FC0', 'Relays'),
 (5903, 'This TAG is for a MiCom Transformer Protection relay. Part number P642312A2M0048J', 'Relays'),
 (5904, 'This TAG is for a MiCom Current differential protection relay, part number P521B0AZ112DA0', 'Relays'),
@@ -1442,35 +1519,7 @@ INSERT INTO `Tag Number` (`NO`, `DESCRIPTION`, `Sub Category`) VALUES
 (5930, 'This TAG is for afront instrument door front extension on the "standard" 63Ka Metal-clad. The extension to no more that 8.00 deep and must clear adjacent door extension and door swing.', 'other'),
 (5931, 'This TAG is for the creataion of removable rear covers from the fron of the unit of the incoming cable.', 'Barrier'),
 (5932, 'This TAG is for a "surge protection system from Maxivolt, part number WS-5Kv', 'other'),
-(5875, 'This TAG is for the Automation NTH SCH-Independence Panels Control Panels. Automation NTH will provide the relay cabinet and internal wiring. Engineering and drawings to be completd by Schneider electric. Substation E panel #5', 'Enclosure'),
-(5876, 'This TAG is for the Automation NTh Rack Mount Enclosure w/shelf', 'Enclosure'),
-(5877, 'This TAG is for the Automation NTH (4) Door Terminal Cabinet', 'Enclosure'),
-(5878, 'VAMP 255 Feeder/Motor Manager Relay; 1/5A current for O/C Phase and Ground Fault with vootage, and Arc Flash detection 40; 265Vac/dc control voltage, Modbus communication interface', 'Relays'),
-(5879, 'This is a TAG for 1200MCM to 2500MCM cables maximum 3 cables per phase. Special termination lug pad requried. Metal-Clad product selector does not have a selection larger than 1000MCM. This is for a one (1) high only', 'other'),
-(5880, 'This TAG is for the device panel 46004-431-02 for the A & B position in a blank cell', 'Barrier'),
-(5881, 'This TAG is for the Remote CPT fuse drawout assembly and compartment. This is for two (2) fuse assembly for a single phase remote CPT', 'other'),
-(5882, 'This TAG is for Engineering time for additional relaying requirements due to the utility specification changes', 'Eng Time'),
-(5883, 'This TAG is for 40 hours of Engineering time', 'Eng Time'),
-(5884, 'This TAG is for a Auto/Manual switch 24205B', 'Switches'),
-(5885, 'This TAG is for a type 24 Electro Switch similar to 24205B except to be Key Lockable', 'Switches'),
-(5886, 'This TAG is for a Sentron PAC3200, part number 7KM2112-0BA00-3AA0 TNIP', 'Metering'),
-(5887, 'This TAG is for a Woodward Syncroising unit, part number SPM-D11/LSXR 8440-1666', 'Metering'),
-(5888, 'This TAG is for a Woodward Syncronising Unit. Part number SPM-D10/NYB 8440-1435', 'Metering'),
-(5889, 'This TAG is for a Woodward Syncronising Unit, part number SPM-D10/NYB8440-1435', 'Metering'),
-(5890, 'This TAG is for A Woodward Syncronising Unit, part number SPM-D10/XN 8440-1668', 'Metering'),
-(5891, 'This TAG is for 36.0 wide transition from Metal-Clad to HVL/cc. Transition includes the frame assembly, bussing and Engineering design time', 'Transitions'),
-(5892, 'This TAG is for a "pull box" on the Metal-Clad Transition to the HVL/cc. Work with TAG 5891.', 'other'),
-(5893, 'This TAG is an Auxiliary relay CAD32G7', 'Relays'),
-(5894, 'This TAG is for a relay, on delay tinimg, CMOS IC Circuit, 0.1% repeat accuracy, 5 timing ranges covering .05 seconds to 999 minutes, thumbwheel Adjustable, part number 9050JCK60V20, 8501NR52 Socket.', 'other'),
-(5895, 'This TAG is for the breaker wiring to have, 1) Close Coil Monitor, 2) spring Charge Indication, 3) Trip Coil Monitor', 'Misc Electrical'),
-(5896, 'This TAG is for a LIPA Metering section, 15Kv, special 54.0 wide bay, provisions for bar type Ct''s, provisions for (2) 250KCML/ph, 1.25 PVC, (2) Lexan barriers and VT barriers', 'other'),
-(5897, 'This TAG is for a change order which is for a quantity of (4) Electroswitch catalog number 2446D, also included is 24 hours Engineering time.', 'Misc Electrical'),
-(5898, 'This TAG is for an Auxiliary relay, 120vac, Part number KUEP11A35120', 'Relays'),
-(5899, 'This TAG is for a relay, 62TDE, 120VAC, 10-100 seconds, Part number is 7014AD', 'Relays'),
-(5900, 'This is a "generic" TAG for 9001KT38 LED type light. The nameplate and cap color is to be determined at time of engineering.', 'Lights'),
-(5901, 'This TAG is for a Metal-clad, 5/ 15Kv, N3R Walk-in assembly connection to the primary side of a 3000KAV "liquid filled" from the Metal-Clad main bus tansformer. This transition will 36.0 wide with a 3.0 throat.', 'Transitions'),
 (5933, 'This TAG is a "polyester" barrier" to be mounted between the sections of the Motorpact units.', 'Key Interlock'),
-(5874, 'This Tag is for the Automation NTH SCH-Independence Panels Control Panels. Automation NTH will provide the relay cabinet and internal wiring. Engineering and drawing to be completed by Schneider Electric. Subsation E & F panel #2', 'Enclosure'),
 (5934, 'This TAG is for four (4) Cylinder Transfer Keylock', 'Key Interlock'),
 (5935, 'A.B. Chance 1.0" ground ball stud covers C4060416, set of 4', 'Ground Studs'),
 (5936, 'This TAG is for the engineering time, Manufacturing labor and testing of a Multilin 369 relay supplied by costomer. The part number of the relay is 369-HI-R-M-O-E-O-E, 125 VOLTS dc', 'Relays'),
@@ -1611,69 +1660,6 @@ INSERT INTO `Tag Number` (`NO`, `DESCRIPTION`, `Sub Category`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Universal Price Change Log`
---
-
-CREATE TABLE IF NOT EXISTS `Universal Price Change Log` (
-  `change number` int(11) DEFAULT NULL,
-  `Change Amount` float DEFAULT NULL,
-  `Date` datetime DEFAULT NULL,
-  `Made By` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Universal Price Change Log`
---
-
-INSERT INTO `Universal Price Change Log` (`change number`, `Change Amount`, `Date`, `Made By`) VALUES
-(20, 1, '2003-04-28 00:00:00', 'Renee');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `administration`
---
-
-CREATE TABLE IF NOT EXISTS `administration` (
-  `TAG` varchar(100) DEFAULT NULL,
-  `After Order` varchar(100) DEFAULT NULL,
-  `qtc` varchar(100) DEFAULT NULL,
-  `passwords` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `administration`
---
-
-INSERT INTO `administration` (`TAG`, `After Order`, `qtc`, `passwords`) VALUES
-('bliven', 'tagorder', 'ctq', 'passwords');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `complexity`
---
-
-CREATE TABLE IF NOT EXISTS `complexity` (
-  `complexity` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `complexity`
---
-
-INSERT INTO `complexity` (`complexity`) VALUES
-('A'),
-('B'),
-('C'),
-('D'),
-('E'),
-('F'),
-('G');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblKeywords`
 --
 
@@ -1696,250 +1682,37 @@ INSERT INTO `tblKeywords` (`ID`, `Keyword`) VALUES
 (7, 'multilin'),
 (8, 'sepam'),
 (9, 'mtm');
---
--- Database: `blogdb`
---
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `Universal Price Change Log`
 --
 
-CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) DEFAULT NULL,
-  `body` text,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id`, `title`, `body`, `created`, `modified`) VALUES
-(1, 'The title', 'This is the post body.', '2014-11-02 10:06:41', NULL),
-(2, 'A title once again', 'And the post body follows.', '2014-11-02 10:06:41', NULL),
-(3, 'Title strikes back', 'This is really exciting! Not.', '2014-11-02 10:06:41', NULL);
---
--- Database: `dbProject`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `SubCatagory`
---
-
-CREATE TABLE IF NOT EXISTS `SubCatagory` (
-  `SubCatagory` varchar(25) NOT NULL DEFAULT '',
-  PRIMARY KEY (`SubCatagory`)
+CREATE TABLE IF NOT EXISTS `Universal Price Change Log` (
+  `change number` int(11) DEFAULT NULL,
+  `Change Amount` float DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+  `Made By` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `SubCatagory`
+-- Dumping data for table `Universal Price Change Log`
 --
 
-INSERT INTO `SubCatagory` (`SubCatagory`) VALUES
-('AC Panel');
---
--- Database: `phpmyadmin`
---
-
--- --------------------------------------------------------
+INSERT INTO `Universal Price Change Log` (`change number`, `Change Amount`, `Date`, `Made By`) VALUES
+(20, 1, '2003-04-28 00:00:00', 'Renee');
 
 --
--- Table structure for table `pma_bookmark`
+-- Constraints for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS `pma_bookmark` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `query` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
 --
--- Table structure for table `pma_column_info`
+-- Constraints for table `Revision`
 --
-
-CREATE TABLE IF NOT EXISTS `pma_column_info` (
-  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_designer_coords`
---
-
-CREATE TABLE IF NOT EXISTS `pma_designer_coords` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `x` int(11) DEFAULT NULL,
-  `y` int(11) DEFAULT NULL,
-  `v` tinyint(4) DEFAULT NULL,
-  `h` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`db_name`,`table_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for Designer';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_history`
---
-
-CREATE TABLE IF NOT EXISTS `pma_history` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `sqlquery` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `username` (`username`,`db`,`table`,`timevalue`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_pdf_pages`
---
-
-CREATE TABLE IF NOT EXISTS `pma_pdf_pages` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `page_nr` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  PRIMARY KEY (`page_nr`),
-  KEY `db_name` (`db_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_recent`
---
-
-CREATE TABLE IF NOT EXISTS `pma_recent` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `tables` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
-
---
--- Dumping data for table `pma_recent`
---
-
-INSERT INTO `pma_recent` (`username`, `tables`) VALUES
-('root', '[{"db":"TAG_data","table":"administration"},{"db":"TAG_data","table":"Applied FO"},{"db":"TAG","table":"administration"},{"db":"TAGdb","table":"Sub-Catagory"},{"db":"TAG","table":"Sub-Catagory"},{"db":"TAGdb","table":"administration"},{"db":"TAG","table":"Price Per Hour"},{"db":"TAG","table":"Backup"},{"db":"TAG","table":"Attachments"},{"db":"dbProject","table":"SubCatagory"}]');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_relation`
---
-
-CREATE TABLE IF NOT EXISTS `pma_relation` (
-  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`master_db`,`master_table`,`master_field`),
-  KEY `foreign_field` (`foreign_db`,`foreign_table`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_table_coords`
---
-
-CREATE TABLE IF NOT EXISTS `pma_table_coords` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `pdf_page_number` int(11) NOT NULL DEFAULT '0',
-  `x` float unsigned NOT NULL DEFAULT '0',
-  `y` float unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_table_info`
---
-
-CREATE TABLE IF NOT EXISTS `pma_table_info` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  PRIMARY KEY (`db_name`,`table_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_table_uiprefs`
---
-
-CREATE TABLE IF NOT EXISTS `pma_table_uiprefs` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `prefs` text COLLATE utf8_bin NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`username`,`db_name`,`table_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_tracking`
---
-
-CREATE TABLE IF NOT EXISTS `pma_tracking` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `version` int(10) unsigned NOT NULL,
-  `date_created` datetime NOT NULL,
-  `date_updated` datetime NOT NULL,
-  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
-  `schema_sql` text COLLATE utf8_bin,
-  `data_sql` longtext COLLATE utf8_bin,
-  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
-  `tracking_active` int(1) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`db_name`,`table_name`,`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT COMMENT='Database changes tracking for phpMyAdmin';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pma_userconfig`
---
-
-CREATE TABLE IF NOT EXISTS `pma_userconfig` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `config_data` text COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+ALTER TABLE `Revision`
+  ADD CONSTRAINT `Revision_ibfk_2` FOREIGN KEY (`TAG Member`) REFERENCES `TAG Member Names` (`TAG Member`),
+  ADD CONSTRAINT `Revision_ibfk_1` FOREIGN KEY (`Complexity`) REFERENCES `complexity` (`complexity`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
