@@ -60,7 +60,6 @@ class AppController extends Controller {
     );
 
     public $components = array(
-    'DebugKit'
     'Session',
     'Auth' => array(
         'loginRedirect' => array('controller' => 'flights', 'action' => 'index'),
@@ -68,8 +67,8 @@ class AppController extends Controller {
             'controller' => 'staticPages',
             'action' => 'index'
         ),
-        'authError' => 'You must be logged in to view this page.',
-        'loginError' => 'Invalid username or Password.', 
+        //'authError' => 'You must be logged in to view this page.',
+        //'loginError' => 'Invalid username or Password.', 
         'authorize' => array('Controller') 
         )
     );

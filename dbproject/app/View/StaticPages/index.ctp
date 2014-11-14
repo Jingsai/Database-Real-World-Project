@@ -41,8 +41,7 @@ $this->set('title_for_layout', "Schneider Electric");
           </button>
             <div class="nav-collapse collapse">
             <ul class="nav pull-right">
-<table>
-              <li><?php echo $this->Html->link('Login',array('controller' => 'users','action' => 'login'));?></li>
+            <li><?php echo $this->Html->link('Login',array('controller' => 'users','action' => 'login'));?></li>
               <!--<li><a href="">Login</a></li>-->
               <li><a href="">Register</a></li>
               <li><a href="">Contact Us</a></li>
