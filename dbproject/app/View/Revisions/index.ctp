@@ -3,7 +3,7 @@
             <?php
                 echo $this->Html->link(
                     'edit tags',
-                    array('action' => 'edit',500)
+                    array('controller'=>'revisions','action' => 'edit',5500)
                 );
             ?>
 
