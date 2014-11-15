@@ -15,50 +15,102 @@
  */
 
 $cakeDescription = __d('cake_dev', 'Schneider Electric');
-//$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
+  <title>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('cake.generic');
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<?php echo $this->Html->meta(array('name'=>'viewport', 'content'=>'width=device-width, initial-scale=1.0')); ?>
+	<?php echo $this->Html->meta(array('name'=>'description', 'content'=>'jQuery Responsive Carousel - Owl Carusel')); ?>
+    <link rel="shortcut icon" href="image/favicon.ico">
+
+	<?php echo $this->Html->css('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700'); ?>
+	<?php echo $this->Html->css('bootstrapTheme'); ?>
+	<?php echo $this->Html->css('custom'); ?>
+
+	<!-- Owl Carousel Assets -->
+	<?php echo $this->Html->css('owl.carousel'); ?>
+	<?php echo $this->Html->css('owl.theme'); ?>
+	<!--<?php echo $this->Html->css('prettify'); ?>-->
 </head>
-<body>
-	<div id="container">
-	     <!--<div id="header">-->
-			<!--<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>-->
-		<!--</div>-->
+<div id="top-nav" class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li>
+              <?php if (AuthComponent::user('id')): ?>
+                <?php echo (AuthComponent::user('username')) ?>
+              <?php else: ?>
+                <?php echo $this->Html->link('Login',array('controller' => 'users','action' => 'login'));?>
+              <?php endif ?>
+              </li>
+            </ul>
+            <ul class="nav pull-left">
+            	<li><?php echo $this->Html->image('se_logo.gif'); ?></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+</div>
+
+    <div id="container">
 		<div id="content">
-
 			<?php echo $this->Session->flash(); ?>
-
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<!--<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
-		</div>-->
-	</div>
-	<!--if you do not want to experience sql log, please uncomment the next line, by xi-->
+    </div>
+	<?php echo $this->Html->script('jquery-1.9.1.min')?>
+  <?php echo $this->Html->script('owl.carousel')?>
+
+	<style>
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    </style>
+
+    
+    <script>
+    $(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+      navigation : true,
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem : true
+      });
+    });
+    </script>
+    <?php echo $this->Html->script('bootstrap-collapse')?>
+    <?php echo $this->Html->script('bootstrap-transition')?>
+    <?php echo $this->Html->script('bootstrap-tab')?>
+    <!--<?php echo $this->Html->script('prettify')?>-->
+    <!--<?php echo $this->Html->script('application')?>-->
+
+    <div id="footer">
+
+      <footer>
+        <p>&copy; 2014 Company, Inc. &middot; <a href="#" style="color:#32cd32">Privacy</a> &middot; <a href="#" style="color:#32cd32">Terms</a></p>
+      </footer>
+      
+    </div> 
+	<!--if you do not want to experience sql log, please uncomment the next line, by Jingsai-->
 	<!--<?php echo $this->element('sql_dump'); ?>-->
-</body>
 </html>

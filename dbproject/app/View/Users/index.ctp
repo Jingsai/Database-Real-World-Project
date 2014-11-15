@@ -1,5 +1,11 @@
+
 <div class="users form">
-<h1>Users</h1>
+<h1>Users</h1>            
+<?php echo $this->Html->link( "Add A New User.",   array('action'=>'add'),array('escape' => false) ); ?>
+<br/>
+<?php 
+    echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
+?>
 <table>
     <thead>
         <tr>
@@ -13,7 +19,7 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody>                       
+    <tbody>                   
         <?php $count=0; ?>
         <?php foreach($users as $user): ?>                
         <?php $count ++;?>
@@ -40,12 +46,9 @@
         <?php unset($user); ?>
     </tbody>
 </table>
-<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-<?php echo $this->Paginator->numbers(array(   'class' => 'numbers'     ));?>
-<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
-</div>                
-<?php echo $this->Html->link( "Add A New User.",   array('action'=>'add'),array('escape' => false) ); ?>
-<br/>
-<?php 
-echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
-?>
+    <?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
+    <?php echo $this->Paginator->numbers(array('class' => 'numbers'));?>
+    <?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
+</div>  
+
+
