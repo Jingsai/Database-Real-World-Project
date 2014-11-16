@@ -37,7 +37,7 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
 
 	<?php echo $this->Html->css('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700'); ?>
 	<?php echo $this->Html->css('bootstrapTheme'); ?>
-	<?php echo $this->Html->css('custom'); ?>
+	<!--<?php echo $this->Html->css('custom'); ?>-->
 
 	<!-- Owl Carousel Assets -->
 	<?php echo $this->Html->css('owl.carousel'); ?>
@@ -62,9 +62,9 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
               <?php endif ?>
               </li>
             </ul>
-            <ul class="nav pull-left">
+            <!--<ul class="nav pull-left">
             	<li><?php echo $this->Html->image('se_logo.gif'); ?></li>
-            </ul>
+            </ul>-->
             </div>
           </div>
         </div>
