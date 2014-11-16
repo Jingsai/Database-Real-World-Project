@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 14, 2014 at 12:19 PM
--- Server version: 5.5.40-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.5
+-- Generation Time: Nov 15, 2014 at 09:46 PM
+-- Server version: 5.5.40
+-- PHP Version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -50,8 +50,7 @@ CREATE TABLE IF NOT EXISTS `Applied FO` (
   `ID` int(11) NOT NULL DEFAULT '0',
   `NO` int(11) DEFAULT NULL,
   `FO Number Applied To` varchar(100) DEFAULT NULL,
-  `Notes to Next Engineer` tinytext,
-  PRIMARY KEY (`ID`)
+  `Notes to Next Engineer` tinytext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -128,8 +127,7 @@ INSERT INTO `Backup` (`ID`, `dtBackup`, `TagMember`, `BackupTo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `complexity` (
-  `complexity` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`complexity`)
+  `complexity` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -199,6 +197,30 @@ CREATE TABLE IF NOT EXISTS `Paste Errors` (
 
 INSERT INTO `Paste Errors` (`NO`, `DESCRIPTION`, `Sub Category`, `Created By`) VALUES
 (1, 'ABB CT''S AND VT''S', 'Barrier', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+`id` int(10) unsigned NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `body` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `body`, `created`, `modified`) VALUES
+(2, 'A title once again', 'And the post body follows.', '2014-11-02 10:06:41', NULL),
+(25, 'Xi', 'Great', '2014-11-14 22:15:06', '2014-11-14 22:15:06'),
+(26, 'Jingsai', 'good', '2014-11-14 22:15:15', '2014-11-14 22:15:15'),
+(28, 'Filmon', 'good', '2014-11-14 23:29:13', '2014-11-14 23:29:13');
 
 -- --------------------------------------------------------
 
@@ -303,11 +325,11 @@ INSERT INTO `Quote To Cash` (`QTC Number`, `Req by`, `Requested`, `Completed`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Revision`
+-- Table structure for table `revisions`
 --
 
-CREATE TABLE IF NOT EXISTS `Revision` (
-  `NO` int(11) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `revisions` (
+  `no` int(11) DEFAULT NULL,
   `rev` int(11) DEFAULT NULL,
   `Lead Time` int(11) DEFAULT NULL,
   `Can LIST PRICE` float DEFAULT NULL,
@@ -329,16 +351,14 @@ CREATE TABLE IF NOT EXISTS `Revision` (
   `revision obsolete` char(1) NOT NULL,
   `Under Current Revision` char(1) NOT NULL,
   `TAG Member` int(11) DEFAULT NULL,
-  `country` varchar(100) DEFAULT NULL,
-  KEY `Complexity` (`Complexity`),
-  KEY `TAG Member` (`TAG Member`)
+  `country` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Revision`
+-- Dumping data for table `revisions`
 --
 
-INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
+INSERT INTO `revisions` (`no`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
 (5500, 0, 0, 0, 0, '2012-11-01 00:00:00', 8.25, 0, 0, 8.25, NULL, 'A', NULL, '1', '1', '1', '1', '0', 12, '0', '0', 13, 'US'),
 (5501, 0, 0, 0, 0, '2012-11-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 'F', 'The Synchronous package will require a 29.5 aux section for mounting and wiring. To use this TAG you will need to price FVNR & 29.5 Aux section plus this TAG. TAG includes Kinetic Synchronous package + Eng + labor', '0', '0', '0', '1', '0', 12, '1', '0', 14, 'US'),
 (5501, 1, 0, 0, 0, '2012-11-01 00:00:00', 13250, 297.12, 497.92, 14045, NULL, NULL, 'The Synchronous package will require a 29.5 aux section for mounting and wiring. To use this TAG you will need to price FVNR & 29.5 Aux section plus this TAG. TAG includes Kinetic Synchronous package + Eng + labor', '0', '0', '0', '1', '0', 24, '0', '0', 14, 'US'),
@@ -585,7 +605,7 @@ INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRI
 (5707, 0, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, NULL, 'E', NULL, '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US'),
 (5707, 0, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, 'Priced per each', 'D', NULL, '0', '0', '1', '0', '0', 12, '1', '0', 1, 'US'),
 (5708, 0, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, 'Priced as each', 'E', NULL, '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US');
-INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
+INSERT INTO `revisions` (`no`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
 (5708, 1, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, 'Priced as each', NULL, NULL, '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US'),
 (5708, 2, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, 'Priced as each', NULL, NULL, '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US'),
 (5708, 3, 40, 0, 0, '2013-03-01 00:00:00', 492, 74.28, 124.48, 690.76, 'Priced as each', NULL, NULL, '0', '0', '1', '0', '0', 12, '1', '0', 14, 'US'),
@@ -840,7 +860,7 @@ INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRI
 (5875, 1, 25, 0, 0, '2013-04-25 00:00:00', 3019, 2785.5, 995.84, 6800.34, 'Price per each. This TAG is for Q2C #33172320', NULL, 'Internal components shown on the BOM will be provided by Schneider, Automation NTH will provide the metal enclosure, wireway/wire duct, wire, wire labels, legend plates, ground bar/ lugs. On this TAG the quantity is one (1). Order quantity as required', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5876, 0, 25, 0, 0, '2013-04-25 00:00:00', 2635, 398.141, 62.24, 3095.38, 'Price is per each', 'C', 'Q2C #33172320', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
 (5877, 0, 25, 0, 0, '2013-04-25 00:00:00', 4137, 7953.9, 62.24, 12153.1, 'Price is per each', 'C', 'Q2C #33172320', '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US');
-INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
+INSERT INTO `revisions` (`no`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRICE`, `DATE`, `MATERIAL`, `LABOR`, `BURDEN`, `INST COST`, `Price Note`, `Complexity`, `Notes`, `hvl`, `HVL/CC`, `Metal Clad`, `MVMCC`, `Special Items`, `price expiration`, `revision obsolete`, `Under Current Revision`, `TAG Member`, `country`) VALUES
 (5878, 0, 0, 0, 0, '2013-04-25 00:00:00', 983, 148.56, 74.688, 1206.25, 'VAMP2553C7 AAA; VA1DA-20; VYX001', 'D', 'Arc sensor cable length equals 20 meters; Surface mounting plate for sensor VA 1 DA-X, Z shaped', '0', '0', '1', '1', '0', 12, '0', '0', 13, 'US'),
 (5873, 1, 25, 0, 0, '2013-04-25 00:00:00', 3019, 3379.74, 497.92, 6896.66, 'Price per each. This TAG is for this order. Substation E & F panel 1. Q2C # 33172320', NULL, 'Internal Componets shown on the BOM will be provided by Schneider, Automation NTH will provide the metal enclosues, wireway/wire duct wire, wire labels, lengend plates, ground bars/lugs. On this TAG, the quantity is one (1). Order quantity as required.', '0', '0', '1', '0', '0', 24, '0', '0', 14, 'US'),
 (5879, 0, 0, 0, 0, '2013-04-26 00:00:00', 100, 297.12, 497.92, 895.04, NULL, 'C', NULL, '0', '0', '1', '0', '0', 12, '0', '0', 14, 'US'),
@@ -1036,6 +1056,36 @@ INSERT INTO `Revision` (`NO`, `rev`, `Lead Time`, `Can LIST PRICE`, `US LIST PRI
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `searchindices`
+--
+
+CREATE TABLE IF NOT EXISTS `searchindices` (
+`id` int(11) NOT NULL,
+  `association_key` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `model` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `data` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='search_indices';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `search_index`
+--
+
+CREATE TABLE IF NOT EXISTS `search_index` (
+`id` int(11) NOT NULL,
+  `association_key` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `model` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `data` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Sub-Catagory`
 --
 
@@ -1147,8 +1197,7 @@ INSERT INTO `Switchboard Items` (`SwitchboardID`, `ItemNumber`, `ItemText`, `Com
 CREATE TABLE IF NOT EXISTS `TAG Member Names` (
   `TAG Member` int(11) NOT NULL DEFAULT '0',
   `Name` varchar(100) DEFAULT NULL,
-  `Current employee` char(1) NOT NULL,
-  PRIMARY KEY (`TAG Member`)
+  `Current employee` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1177,8 +1226,7 @@ INSERT INTO `TAG Member Names` (`TAG Member`, `Name`, `Current employee`) VALUES
 CREATE TABLE IF NOT EXISTS `Tag Number` (
   `NO` int(11) NOT NULL DEFAULT '0',
   `DESCRIPTION` varchar(510) DEFAULT NULL,
-  `Sub Category` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`NO`)
+  `Sub Category` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1703,16 +1751,122 @@ CREATE TABLE IF NOT EXISTS `Universal Price Change Log` (
 INSERT INTO `Universal Price Change Log` (`change number`, `Change Amount`, `Date`, `Made By`) VALUES
 (20, 1, '2003-04-28 00:00:00', 'Renee');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+`id` int(10) unsigned NOT NULL,
+  `username` varchar(128) DEFAULT NULL,
+  `password` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `type` varchar(64) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `type`, `created`, `modified`, `status`) VALUES
+(1, 'Adam', '5b710b415de338f7b04585b89917e8d24a1fc49e', 'adam@gmail.com', 'admin', '2014-11-15 02:34:16', '2014-11-15 02:34:16', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Applied FO`
+--
+ALTER TABLE `Applied FO`
+ ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `complexity`
+--
+ALTER TABLE `complexity`
+ ADD PRIMARY KEY (`complexity`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `revisions`
+--
+ALTER TABLE `revisions`
+ ADD KEY `Complexity` (`Complexity`), ADD KEY `TAG Member` (`TAG Member`);
+
+--
+-- Indexes for table `searchindices`
+--
+ALTER TABLE `searchindices`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `association_key` (`association_key`,`model`), ADD FULLTEXT KEY `data` (`data`);
+
+--
+-- Indexes for table `search_index`
+--
+ALTER TABLE `search_index`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `association_key` (`association_key`,`model`), ADD FULLTEXT KEY `data` (`data`);
+
+--
+-- Indexes for table `TAG Member Names`
+--
+ALTER TABLE `TAG Member Names`
+ ADD PRIMARY KEY (`TAG Member`);
+
+--
+-- Indexes for table `Tag Number`
+--
+ALTER TABLE `Tag Number`
+ ADD PRIMARY KEY (`NO`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `searchindices`
+--
+ALTER TABLE `searchindices`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `search_index`
+--
+ALTER TABLE `search_index`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `Revision`
+-- Constraints for table `revisions`
 --
-ALTER TABLE `Revision`
-  ADD CONSTRAINT `Revision_ibfk_2` FOREIGN KEY (`TAG Member`) REFERENCES `TAG Member Names` (`TAG Member`),
-  ADD CONSTRAINT `Revision_ibfk_1` FOREIGN KEY (`Complexity`) REFERENCES `complexity` (`complexity`);
+ALTER TABLE `revisions`
+ADD CONSTRAINT `Revision_ibfk_2` FOREIGN KEY (`TAG Member`) REFERENCES `TAG Member Names` (`TAG Member`),
+ADD CONSTRAINT `Revision_ibfk_1` FOREIGN KEY (`Complexity`) REFERENCES `complexity` (`complexity`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

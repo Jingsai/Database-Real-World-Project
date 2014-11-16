@@ -1,6 +1,6 @@
 <?php
 class RevisionsController extends AppController{
-        public $helpers = array('Html', 'Form');
+       // public $helpers = array('Html', 'Form');
         public function index(){
         }
         public function view( $id=null ){
@@ -13,12 +13,37 @@ class RevisionsController extends AppController{
         }
         $this->set('post', $post);
         }
-         public function edit($no=null) 
-	{		
+         public function edit($id=null) 
+	{	
+			
 		//$this->set('revisions',$this->Revision->findByNo(5500));
-	     $revisions = $this->Revision->findByNo(5500);
-	 $this->request->data = $revisions; 
-		$this->Session->setFlash(__('Unable to update your post.'));
+		if(!$id)
+			throw new NotFoundException(_('Invalid post'));
+
+		$revisions = $this->Revision->findById($id);
+		if(!$revisions)
+			throw new NotFoundException(_('Invalid Post'));
+
+		if ($this->request->is(array('post','put')))
+		{
+			$this->Revision->id=$id;			
+			if($this->Revision->save($this->request->data))
+			{
+				
+				$this->Session->setFlash(__('The user has been updated'));
+				return $this->redirect(array('action'=>'index'));
+		///		$this->redirect(array('action'=>'edit',$id));
+			}
+		//	else
+		//	{
+			$this->Session->setFlash(__('Unable to update your post.'));
+		//	}
+			
+		}
+		if (!$this->request->data )
+		{
+		 	$this->request->data = $revisions;
+		} 
         }
     }
 

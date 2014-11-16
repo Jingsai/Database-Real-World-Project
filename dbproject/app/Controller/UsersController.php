@@ -15,7 +15,9 @@ class UsersController extends AppController {
  
  
     public function login() {
-         
+         //$this->Session->destroy();
+         //print_r($this->Session->check('Auth.User'));
+         //return true;
         //if already logged-in, redirect
         if($this->Session->check('Auth.User')){
             $this->redirect(array('controller'=>'users','action' => 'index'));      
@@ -61,6 +63,10 @@ class UsersController extends AppController {
  
     public function edit($id = null) {
  
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
+		echo "<br>";
             if (!$id) {
                 $this->Session->setFlash('Please provide a user id');
                 $this->redirect(array('action'=>'index'));
@@ -74,6 +80,8 @@ class UsersController extends AppController {
  
             if ($this->request->is('post') || $this->request->is('put')) {
                 $this->User->id = $id;
+	print_r($this->User->id);
+	print_r('hello');	
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'));
                     $this->redirect(array('action' => 'edit', $id));
