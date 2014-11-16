@@ -1,13 +1,6 @@
 
 <h1>Blog posts</h1>
 
-
-<?php
-	echo $form->create("Post",array('action' => 'search));
-	echo $form->input("q", array('label' => 'Search for'));
-	echo $form->end("Search");
-?>
-
 <p><?php echo $this->Html->link('Add Post', array('action' => 'add')); ?></p>
 
 <table>
@@ -52,3 +45,12 @@
     <?php endforeach; ?>
 
 </table>
+
+
+
+<?php
+    echo $this->Form->create();
+    echo $this->Form->input('title');
+    echo $this->Form->submit(__('Submit'));
+    echo $this->Form->end();
+?>
