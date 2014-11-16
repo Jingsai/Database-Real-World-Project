@@ -1,17 +1,31 @@
 <?php
 class RevisionsController extends AppController{
+	
+	public $components=array('Search.Prg','Paginator');
+
+	public $paginate = array(
+                'limit' => 25,
+                'order' => array(
+                        'Revision.no' => 'asc'
+                )
+        );
+
        // public $helpers = array('Html', 'Form');
-        public function index(){
+        public function index()
+	{
+		$this->Prg->commonProcess();
+       		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
+      		$this->set('revisions', $this->Paginator->paginate());	
         }
-        public function view( $id=null ){
-                if (!$id) {
+        public function view( $no=null ){
+                if (!$no) {
                         throw new NotFoundException(__('Invalid post'));
                 }
-                $post = $this->Post->findById($id);
-        if (!$post) {
+                $revision= $this->Revision->findById($no);
+        if (!$revision) {
             throw new NotFoundException(__('Invalid post'));
         }
-        $this->set('post', $post);
+        $this->set('revision', $revision);
         }
          public function edit($id=null) 
 	{	
@@ -31,8 +45,8 @@ class RevisionsController extends AppController{
 			{
 				
 				$this->Session->setFlash(__('The user has been updated'));
-				return $this->redirect(array('action'=>'index'));
-		///		$this->redirect(array('action'=>'edit',$id));
+//				return $this->redirect(array('action'=>'index'));
+				$this->redirect(array('action'=>'edit',$id));
 			}
 		//	else
 		//	{
@@ -45,6 +59,20 @@ class RevisionsController extends AppController{
 		 	$this->request->data = $revisions;
 		} 
         }
+//XIXXI
+
+	
+	
+
+
+
+
+
+
+
+
+
+
     }
 
 

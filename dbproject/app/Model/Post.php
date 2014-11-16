@@ -4,14 +4,14 @@ class Post extends AppModel{
 	public $actsAs = array('Search.Searchable');
 
 	public $filterArgs = array(
-	 	'title' => array(
+	 	'no' => array(
 		'type' => 'like',
-		'field' => 'title'
+		'field' => 'no'
 		)
 	);	
 
 	public $validate = array(
-        'title' => array(
+        'no' => array(
             'rule' => 'notEmpty'
         ),
         'body' => array(
