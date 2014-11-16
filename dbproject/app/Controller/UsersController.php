@@ -9,17 +9,15 @@ class UsersController extends AppController {
      
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login','add'); 
+        $this->Auth->allow('login','add','logout','edit','delete'); 
     }
      
  
  
     public function login() {
-         //$this->Session->destroy();
-         //print_r($this->Session->check('Auth.User'));
-         //return true;
         //if already logged-in, redirect
         if($this->Session->check('Auth.User')){
+            //$this->redirect($this->Auth->logout());
             $this->redirect(array('controller'=>'users','action' => 'index'));      
         }
          
@@ -62,11 +60,6 @@ class UsersController extends AppController {
     }
  
     public function edit($id = null) {
- 
-		echo "<br>";
-		echo "<br>";
-		echo "<br>";
-		echo "<br>";
             if (!$id) {
                 $this->Session->setFlash('Please provide a user id');
                 $this->redirect(array('action'=>'index'));
@@ -80,8 +73,6 @@ class UsersController extends AppController {
  
             if ($this->request->is('post') || $this->request->is('put')) {
                 $this->User->id = $id;
-	print_r($this->User->id);
-	print_r('hello');	
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'));
                     $this->redirect(array('action' => 'edit', $id));
@@ -96,7 +87,6 @@ class UsersController extends AppController {
     }
  
     public function delete($id = null) {
-         
         if (!$id) {
             $this->Session->setFlash('Please provide a user id');
             $this->redirect(array('action'=>'index'));
@@ -107,31 +97,19 @@ class UsersController extends AppController {
             $this->Session->setFlash('Invalid user id provided');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->User->saveField('status', 0)) {
-            $this->Session->setFlash(__('User deleted'));
-            $this->redirect(array('action' => 'index'));
+        $numAdmin = $this->User->find('count', array('conditions' => array('User.Type' => 'admin')));
+        $user = $this->User->findById($id);
+        if ($numAdmin <= 1 && $user['User']['type'] == 'admin') {
+            $this->Session->setFlash('Failed to delete user. You are the only Admin');
+            return $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('User was not deleted'));
-        $this->redirect(array('action' => 'index'));
-    }
-     
-    public function activate($id = null) {
-         
-        if (!$id) {
-            $this->Session->setFlash('Please provide a user id');
-            $this->redirect(array('action'=>'index'));
+        
+        if ($this->Auth->user('type') == 'admin' && $this->User->delete($id)) {
+            $this->Session->setFlash('User has been deleted');
+        }else{
+            $this->Session->setFlash('Failed to deleted user');
         }
-         
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            $this->Session->setFlash('Invalid user id provided');
-            $this->redirect(array('action'=>'index'));
-        }
-        if ($this->User->saveField('status', 1)) {
-            $this->Session->setFlash(__('User re-activated'));
-            $this->redirect(array('action' => 'index'));
-        }
-        $this->Session->setFlash(__('User was not re-activated'));
+       
         $this->redirect(array('action' => 'index'));
     }
  
