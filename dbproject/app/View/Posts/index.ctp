@@ -1,6 +1,15 @@
 
 <h1>Blog posts</h1>
+
+
+<?php
+	echo $form->create("Post",array('action' => 'search));
+	echo $form->input("q", array('label' => 'Search for'));
+	echo $form->end("Search");
+?>
+
 <p><?php echo $this->Html->link('Add Post', array('action' => 'add')); ?></p>
+
 <table>
     <tr>
         <th>Id</th>
