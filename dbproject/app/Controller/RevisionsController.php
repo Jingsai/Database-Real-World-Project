@@ -17,16 +17,26 @@ class RevisionsController extends AppController{
        		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
       		$this->set('revisions', $this->Paginator->paginate());	
         }
-        public function view( $no=null ){
-                if (!$no) {
+        public function view( $id=null ){
+                if (!$id) {
                         throw new NotFoundException(__('Invalid post'));
                 }
-                $revision= $this->Revision->findById($no);
-        if (!$revision) {
+                $revisions= $this->Revision->findById($id);
+        if (!$revisions) {
             throw new NotFoundException(__('Invalid post'));
         }
-        $this->set('revision', $revision);
-        }
+        
+		if ($this->request->is(array('post','put')))
+		{
+		
+			$this->Revision->id=$id;			
+		}
+		if (!$this->request->data )
+		{
+		 	$this->request->data = $revisions;
+		} 
+		
+	}
          public function edit($id=null) 
 	{	
 			
