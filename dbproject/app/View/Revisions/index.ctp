@@ -9,10 +9,11 @@
 
 <table>
     <tr>
-        <th>id</th>
-	<th>no</th>
-        <th>rev</th>
-	<th>material</th>
+        <th>Id</th>
+	<th>No</th>
+        <th>Rev</th>
+	<th>Material</th>
+	<th>Actions</th>
     </tr>
 
 <!-- Here's where we loop through our $posts array, printing out post info -->
@@ -21,15 +22,20 @@
     <tr>
         <td><?php echo $revision['Revision']['id']; ?></td>
         <td><?php echo $revision['Revision']['no']; ?></td>
-        <td>
+        <td><?php echo $revision['Revision']['rev'];?></td>
+        <td><?php echo $revision['Revision']['material']; ?></td>
+	<td>  <?php
+                echo $this->Html->link(
+                    'View',
+                    array('action' => 'view', $revision['Revision']['id']));
+            ?>
             <?php
                 echo $this->Html->link(
-                    $revision['Revision']['rev'],
-                    array('action' => 'view', $revision['Revision']['rev'])
-                );
+                    'Edit',
+                    array('action' => 'edit', $revision['Revision']['id']));
             ?>
         </td>
-        <td><?php echo $revision['Revision']['material']; ?></td>
+
     </tr>
     <?php endforeach; ?>
 
