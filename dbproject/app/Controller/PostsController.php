@@ -36,6 +36,7 @@ class PostsController extends AppController{
         }
         $this->set('post', $post);
 	}
+
 	 public function add() {
         if ($this->request->is('post')) {
             $this->Post->create();

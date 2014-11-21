@@ -12,6 +12,8 @@
         <th>Id</th>
 	<th>No</th>
         <th>Rev</th>
+        <th>Date</th>
+	<!-- <th>Notes</th> -->
 	<th>Material</th>
 	<th>Actions</th>
     </tr>
@@ -23,6 +25,8 @@
         <td><?php echo $revision['Revision']['id']; ?></td>
         <td><?php echo $revision['Revision']['no']; ?></td>
         <td><?php echo $revision['Revision']['rev'];?></td>
+        <td><?php echo $revision['Revision']['DATE'];?></td>
+        <!-- <td><?php echo $revision['Revision']['Notes'];?></td>-->
         <td><?php echo $revision['Revision']['material']; ?></td>
 	<td>  <?php
                 echo $this->Html->link(
@@ -47,10 +51,22 @@
 
 
 <?php
-    echo $this->Form->create();
-    echo $this->Form->hidden('id');
-   
-    echo $this->Form->input('no');
+    echo $this->Form->create();	
+    
+    echo $this->Form->hidden('id');   
+?>
+    <table>
+    <tr>
+    <td><?php echo $this->Form->input('ID'); ?></td>
+    <td><?php echo $this->Form->input('no'); ?></td>
+    <td><?php echo $this->Form->input('Rev'); ?></td>
+   <!-- <td><?php echo $this->Form->input('DATE'); ?></td> -->
+   <!-- <td><?php echo $this->Form->input('Notes'); ?></td> -->
+    <td><?php echo $this->Form->input('material'); ?></td>
+    </tr>
+    </table>
+
+<?php
     echo $this->Form->submit(__('Submit'));
     echo $this->Form->end();
 ?>
