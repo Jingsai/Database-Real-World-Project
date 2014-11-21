@@ -130,6 +130,7 @@ class CakeRequest implements ArrayAccess {
  */
 	public function __construct($url = null, $parseEnvironment = true) {
 		$this->_base();
+		
 		if (empty($url)) {
 			$url = $this->_url();
 		}
@@ -137,7 +138,7 @@ class CakeRequest implements ArrayAccess {
 			$url = substr($url, 1);
 		}
 		$this->url = $url;
-
+		
 		if ($parseEnvironment) {
 			$this->_processPost();
 			$this->_processGet();

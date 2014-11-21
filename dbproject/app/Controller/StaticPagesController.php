@@ -4,9 +4,9 @@
 class StaticPagesController extends AppController {
 
 	public function beforeFilter() {
-    parent::beforeFilter();
-    // Allow users to register and logout.
-    $this->Auth->allow('index');
+   		 parent::beforeFilter();
+   		 // Allow users to login, logout, view index.
+    	$this->Auth->allow('index');
 	}
 
 

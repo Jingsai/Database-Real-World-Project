@@ -62,31 +62,25 @@ class AppController extends Controller {
     public $components = array(
     'Session',
     'Auth' => array(
-        'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+        'loginRedirect' => array('controller' => 'staticPages', 'action' => 'index'),
         'logoutRedirect' => array(
             'controller' => 'staticPages',
             'action' => 'index'
         ),
-        //'authError' => 'You must be logged in to view this page.',
-        //'loginError' => 'Invalid username or Password.', 
+        'authError' => 'You must be logged in to view this page.',
+        'loginError' => 'Invalid username or Password.', 
         'authorize' => array('Controller') 
         )
     );
     public function beforeFilter() {
     parent::beforeFilter();
-    // Allow users to register and logout.
-    $this->Auth->allow('login', 'logout','home');
+    // Allow users to login and logout.
+        $this->Auth->allow('login', 'logout');
     }
 
     
 
-    public function isAuthorized($user) {
-        // Admin can access every action
-        if (isset($user['type']) && $user['type'] === 'admin') {
-            return true;
-        }
-
-        // Default deny
+   public function isAuthorized($user) {
         return false;
     }
 

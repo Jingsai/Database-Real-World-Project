@@ -18,7 +18,6 @@ $this->set('title_for_layout', "Schneider Electric");
         </div>
       </div>
     </div>
-
       <div id="demo">
         <div class="container">
           <div class="row">

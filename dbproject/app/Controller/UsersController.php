@@ -6,21 +6,45 @@ class UsersController extends AppController {
         'conditions' => array('status' => '1'),
         'order' => array('User.username' => 'asc' ) 
     );
+    public function isAuthorized($user) {
+        //echo “nihao”;
+       // parent::isAuthorized();
+            $group = json_decode(AuthComponent::user('group'));
+            //var_dump($group);
+            if (!empty($group)) {
+                //echo "string";
+                if (in_array("admin", $group)) {
+                     //admin can not add users;
+                       //if($this->request->params['action']!='add'){
+                            //return true;
+                        //}
+                    return true;
+                }
+            }       
+            $this->Session->setFlash(__('Action deny.'));
+            $this->redirect($this->Auth->redirectUrl());
+            return false;      
+    }
      
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login','add','logout','edit','delete'); 
+        //$this->Auth->allow('add','edit','delete','home');
+        if(AuthComponent::user('group')){
+            $group = json_decode(AuthComponent::user('group'));
+            if (in_array("admin", $group)){
+                $this->Auth->allow('add','edit','delete','index');
+            }else{
+                $this->Auth->deny('add','edit','delete','index');
+            }
+        }
     }
      
  
  
     public function login() {
-        //if already logged-in, redirect
         if($this->Session->check('Auth.User')){
-            //$this->redirect($this->Auth->logout());
-            $this->redirect(array('controller'=>'users','action' => 'index'));      
+            return $this->redirect($this->Auth->redirectUrl());
         }
-         
         // if we get the post information, try to authenticate
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
@@ -47,11 +71,32 @@ class UsersController extends AppController {
  
  
     public function add() {
+       //echo  AuthComponent::user('group');
+        //test
+        /*$this->request->data = array(
+                'User' => array(
+                    'username' => 'jingsai',
+                    'email' => 'example@gmail.com',
+                    'password' => 'jingsaipw',
+                    'password_confirm' => 'jingsaipw',
+                    'group' =>array(
+                        '0'=>'admin', 
+                        '1'=>'tagmembers'
+                        )
+                    )
+            );*/
+
         if ($this->request->is('post')) {
-                 
+            if (empty($this->request->data['User']['group'])) {
+                $this->Session->setFlash(__('You must select at least one group'));
+                return false;
+            }
+            $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']); 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
+            //if ($this->User->saveAll($this->request->data,array('atomic' => false, 'deep' =>true))) {
                 $this->Session->setFlash(__('The user has been created'));
+               // print_r(here);
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The user could not be created. Please, try again.'));
@@ -66,6 +111,7 @@ class UsersController extends AppController {
             }
  
             $user = $this->User->findById($id);
+            $user['User']['group'] = json_decode($user['User']['group']);
             if (!$user) {
                 $this->Session->setFlash('Invalid User ID Provided');
                 $this->redirect(array('action'=>'index'));
@@ -73,6 +119,7 @@ class UsersController extends AppController {
  
             if ($this->request->is('post') || $this->request->is('put')) {
                 $this->User->id = $id;
+                $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']);
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'));
                     $this->redirect(array('action' => 'edit', $id));
@@ -97,18 +144,20 @@ class UsersController extends AppController {
             $this->Session->setFlash('Invalid user id provided');
             $this->redirect(array('action'=>'index'));
         }
-        $numAdmin = $this->User->find('count', array('conditions' => array('User.Type' => 'admin')));
+        //$numAdmin = $this->User->find('count', array('conditions' => array('User.Type' => 'admin')));
         $user = $this->User->findById($id);
-        if ($numAdmin <= 1 && $user['User']['type'] == 'admin') {
+        /*if ($numAdmin <= 1 && $user['User']['type'] == 'admin') {
             $this->Session->setFlash('Failed to delete user. You are the only Admin');
             return $this->redirect(array('action' => 'index'));
-        }
-        
-        if ($this->Auth->user('type') == 'admin' && $this->User->delete($id)) {
+        }*/
+        $group = json_decode($this->Auth->user('group'));
+        //if ($this->Auth->user('type') == 'admin' && $this->User->delete($id)) {
+        if (in_array("admin", $group) && $this->User->delete($id)) {
             $this->Session->setFlash('User has been deleted');
         }else{
             $this->Session->setFlash('Failed to deleted user');
         }
+        
        
         $this->redirect(array('action' => 'index'));
     }

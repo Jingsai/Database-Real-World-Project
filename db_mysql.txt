@@ -33,3 +33,14 @@ CREATE TABLE users(
 	`modified` DATETIME DEFAULT NULL,
 	`status` tinyint(1) NOT NULL DEFAULT '1'
 );
+
+
+--========================================================
+jingsai-20141120 9:27pm
+ALTER TABLE `users`
+change `type` `group` varchar(64) DEFAULT NULL;
+
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `group`, `created`, `modified`, `status`) VALUES
+(1, 'Adam', '5b710b415de338f7b04585b89917e8d24a1fc49e', 'adam@gmail.com', '["admin"]', '2014-11-15 02:34:16', '2014-11-15 02:34:16', 1);
+

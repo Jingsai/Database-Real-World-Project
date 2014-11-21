@@ -7,21 +7,26 @@
         echo $this->Form->input('email');
         echo $this->Form->input('password');
         echo $this->Form->input('password_confirm', array('label' => 'Confirm Password *', 'maxLength' => 255, 'title' => 'Confirm password', 'type'=>'password'));
-        echo $this->Form->input('type', array(
+        /*echo $this->Form->input('type', array(
+            'options' => array( 'admin' => 'Admin', 'tagmembers' => 'TagMmembers', 'oe' => 'OE', 'user' => 'User')
+        ));*/
+        echo $this->Form->input('group',array(
+            'group' => __('group',true),
+            'type' => 'select',
+            'multiple' => 'checkbox',
             'options' => array( 'admin' => 'Admin', 'tagmembers' => 'TagMmembers', 'oe' => 'OE', 'user' => 'User')
         ));
-         
         echo $this->Form->submit('Add User', array('class' => 'form-submit',  'title' => 'Click here to add the user') ); 
 ?>
     </fieldset>
 <?php echo $this->Form->end(); ?>
 </div>
-<?php 
+<!--<?php 
 if($this->Session->check('Auth.User')){
-echo $this->Html->link( "Return to Dashboard",   array('action'=>'index') ); 
+echo $this->Html->link( "Return to homepage",   array('controller'=>'StaticPages','action'=>'index') ); 
 echo "<br>";
 echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
 }else{
 echo $this->Html->link( "Return to Login Screen",   array('action'=>'login') ); 
 }
-?>
+?>-->

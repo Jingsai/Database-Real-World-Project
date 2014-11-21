@@ -71,19 +71,55 @@ class RevisionsController extends AppController{
         }
 //XIXXI
 
-	
-	
+//Jingsai allow action or deny action
+    public function isAuthorized($user) {
+        $group = json_decode(AuthComponent::user('group'));
+        // $group = array(0 => 'tagmemebers')
+        if (!empty($group)) {
+        	if (in_array("tagmembers", $group) || in_array("oe", $group)) {
+           		 //admin can not add users;
+            	//if($this->request->params['action']!='add'){
+            		//return true;
+            	//}
+            	return true;
+            }
+            if (in_array("oe", $group)) {
+                //oe can not edit
+            	if ($this->request->params['action'] != 'edit') {
+            		return true;
+            	}
+            }
 
-
-
-
-
-
-
-
-
-
+        }
+            $this->Session->setFlash(__('Action deny.'));
+            $this->redirect($this->Auth->redirectUrl());
+            return false;      
     }
+
+	 public function beforeFilter() {
+        parent::beforeFilter();
+        if(AuthComponent::user('group')){
+            $group = json_decode(AuthComponent::user('group'));
+            if (in_array("tagmembers", $group) || in_array("oe", $group)){
+                $this->Auth->allow('edit','index');
+            }
+            if(in_array("user", $group)){
+                $this->Auth->allow('index');
+            }
+        }
+    }
+	
+
+
+
+
+
+
+
+
+
+
+}
 
 
 

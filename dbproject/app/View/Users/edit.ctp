@@ -10,18 +10,24 @@
         echo $this->Form->input('password_confirm_update', array('label' => 'Confirm New Password *', 'maxLength' => 255, 'title' => 'Confirm New password', 'type'=>'password','required' => 0));
          
  
-        echo $this->Form->input('role', array(
+       /*echo $this->Form->input('role', array(
             'options' => array( 'king' => 'King', 'queen' => 'Queen', 'rook' => 'Rook', 'bishop' => 'Bishop', 'knight' => 'Knight', 'pawn' => 'Pawn')
+        ));*/
+          echo $this->Form->input('group',array(
+            'group' => __('group',true),
+            'type' => 'select',
+            'multiple' => 'checkbox',
+            'options' => array( 'admin' => 'Admin', 'tagmembers' => 'TagMmembers', 'oe' => 'OE', 'user' => 'User')
         ));
         echo $this->Form->submit('Edit User', array('class' => 'form-submit',  'title' => 'Click here to add the user') ); 
 ?>
     </fieldset>
 <?php echo $this->Form->end(); ?>
 </div>
-<?php 
+<!--<?php 
 echo $this->Html->link( "Return to Dashboard",   array('action'=>'index') ); 
-?>
-<br/>
+?>-->
+<!--<br/>
 <?php 
 echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
-?>
+?>-->

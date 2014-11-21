@@ -62,12 +62,12 @@ class User extends AppModel {
                 'message' => 'Usernames must be between 6 to 60 characters'
             )
         ),
-        'type' => array(
-            'valid' => array(
-                'rule' => array('inList', array('admin', 'tagmembers', 'oe', 'user')),
-                'message' => 'Please enter a valid role',
-                'allowEmpty' => false
-            )
+        'group' => array(
+            //'valid' => array(
+                //'rule' => array('inList', array('admin', 'tagmembers', 'oe', 'user')),
+               // 'message' => 'You must select at least one group',
+               // 'allowEmpty' => false
+            //)
         ),
          
          

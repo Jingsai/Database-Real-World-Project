@@ -1,4 +1,4 @@
-<!--<?php $this->set('title_for_layout', "Aerodock | Login");?>-->
+<!--<?php $this->set('title_for_layout', "Login");?>-->
 
 <div class="users form">
 <?php echo $this->Session->flash('auth'); ?>

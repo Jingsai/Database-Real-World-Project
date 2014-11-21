@@ -3,9 +3,9 @@
 <h1>Users</h1>            
 <?php echo $this->Html->link( "Add A New User.",   array('action'=>'add'),array('escape' => false) ); ?>
 <br/>
-<?php 
+<!--<?php 
     echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
-?>
+?>-->
 <table>
     <thead>
         <tr>
@@ -14,7 +14,7 @@
             <th><?php echo $this->Paginator->sort('email', 'E-Mail');?></th>
             <th><?php echo $this->Paginator->sort('created', 'Created');?></th>
             <th><?php echo $this->Paginator->sort('modified','Last Update');?></th>
-            <th><?php echo $this->Paginator->sort('type','type');?></th>
+            <th><?php echo $this->Paginator->sort('group','group');?></th>
             <th><?php echo $this->Paginator->sort('status','Status');?></th>
             <th>Actions</th>
         </tr>
@@ -31,7 +31,7 @@
             <td style="text-align: center;"><?php echo $user['User']['email']; ?></td>
             <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['created']); ?></td>
             <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['modified']); ?></td>
-            <td style="text-align: center;"><?php echo $user['User']['type']; ?></td>
+            <td style="text-align: center;"><?php echo $user['User']['group']; ?></td>
             <td style="text-align: center;"><?php echo $user['User']['status']; ?></td>
             <td >
             <?php echo $this->Html->link("Edit",   array('action'=>'edit', $user['User']['id'])); ?> |
