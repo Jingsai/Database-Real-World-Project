@@ -131,7 +131,7 @@ class UsersController extends AppController {
                 $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']);
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'));
-                    $this->redirect(array('action' => 'edit', $id));
+                    $this->redirect(array('action' => 'index'));
                 }else{
                     $this->Session->setFlash(__('Unable to update your user.'));
                 }

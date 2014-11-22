@@ -27,13 +27,13 @@ class LogsController extends AppController {
      public $paginate = array(
         'limit' => 25,
         'conditions' => array('act' => 'login'),
-        'order' => array('Log.username' => 'asc' ) 
+        'order' => array('Log.time' => 'asc' ) 
     );
 
 	public function index(){
   		$this->paginate = array(
             'limit' => 5,
-            'order' => array('Log.username' => 'asc'),
+            'order' => array('Log.time' => 'desc'),
             'conditions' => array('act' => 'login')    //show logs of action equals login
         );
         $logs = $this->paginate('Log');
