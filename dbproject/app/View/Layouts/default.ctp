@@ -56,7 +56,7 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
             <ul class="nav pull-right">
               <li>
                 <?php if (AuthComponent::user('id')): ?>
-                  <?php echo $this->Html->link(AuthComponent::user('username'),array('controller' => 'users','action' => 'login'));?>
+                  <?php echo $this->Html->link(AuthComponent::user('username'),array('controller' => 'staticpages','action' => 'index'));?>
                   <?php else: ?>
                   <?php echo $this->Html->link('Login',array('controller' => 'users','action' => 'login'));?>
                 <?php endif ?>
@@ -66,6 +66,12 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
                 if (AuthComponent::user('id') && in_array("admin", $group)): ?>
                   <?php echo $this->Html->link('View Groups',array('controller' => 'users','action' => 'index'));?>
               <?php endif ?>
+              </li>
+              <li>
+                <?php $group = json_decode(AuthComponent::user('group'));
+                if (AuthComponent::user('id') && in_array("admin", $group)): ?>
+                  <?php echo $this->Html->link('View Log', array('controller' => 'logs', 'action' => 'index')); ?>
+                <?php endif ?>
               </li>
               <li>
                 <?php $group = json_decode(AuthComponent::user('group'));

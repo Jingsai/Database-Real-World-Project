@@ -10,13 +10,13 @@
     <thead>
         <tr>
             <th><?php echo $this->Form->checkbox('all', array('name' => 'CheckAll',  'id' => 'CheckAll')); ?></th>
-            <th><?php echo $this->Paginator->sort('username', 'Username');?>  </th>
-            <th><?php echo $this->Paginator->sort('email', 'E-Mail');?></th>
-            <th><?php echo $this->Paginator->sort('created', 'Created');?></th>
-            <th><?php echo $this->Paginator->sort('modified','Last Update');?></th>
-            <th><?php echo $this->Paginator->sort('group','group');?></th>
-            <th><?php echo $this->Paginator->sort('status','Status');?></th>
-            <th>Actions</th>
+            <th style="text-align: center;"><?php echo $this->Paginator->sort('username', 'Username');?>  </th>
+            <th style="text-align: center;"><?php echo $this->Paginator->sort('email', 'E-Mail');?></th>
+            <th style="text-align: center;"><?php echo $this->Paginator->sort('created', 'Created');?></th>
+            <th style="text-align: center;"><?php echo $this->Paginator->sort('modified','Last Update');?></th>
+            <th style="text-align: center;"><?php echo $this->Paginator->sort('group','Group');?></th>
+           <!--<th style="text-align: center;"><?php echo $this->Paginator->sort('status','Status');?></th>-->
+            <th style="text-align: center;">Actions</th>
         </tr>
     </thead>
     <tbody>                   
@@ -27,12 +27,15 @@
         <?php endif; ?>
             <td><?php echo $this->Form->checkbox('User.id.'.$user['User']['id']); ?></td>
             <!--<td><?php echo $this->Html->link( $user['User']['username']  ,   array('action'=>'edit', $user['User']['id']),array('escape' => false) );?></td>-->
-             <td style="text-align: center;"><?php echo $user['User']['username']; ?></td>
+            <td style="text-align: center;"><?php echo $user['User']['username']; ?></td>
             <td style="text-align: center;"><?php echo $user['User']['email']; ?></td>
-            <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['created']); ?></td>
-            <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['modified']); ?></td>
+           
+           <!-- <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['created']); ?></td>
+            <td style="text-align: center;"><?php echo $this->Time->niceShort($user['User']['modified']); ?></td>-->
+            <td style="text-align: center;"><?php echo $user['User']['created']; ?></td>
+            <td style="text-align: center;"><?php echo $user['User']['modified']; ?></td>
             <td style="text-align: center;"><?php echo $user['User']['group']; ?></td>
-            <td style="text-align: center;"><?php echo $user['User']['status']; ?></td>
+            <!--<td style="text-align: center;"><?php echo $user['User']['status']; ?></td>-->
             <td >
             <?php echo $this->Html->link("Edit",   array('action'=>'edit', $user['User']['id'])); ?> |
             <?php

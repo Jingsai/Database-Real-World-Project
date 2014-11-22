@@ -7,12 +7,9 @@ class UsersController extends AppController {
         'order' => array('User.username' => 'asc' ) 
     );
     public function isAuthorized($user) {
-        //echo “nihao”;
        // parent::isAuthorized();
             $group = json_decode(AuthComponent::user('group'));
-            //var_dump($group);
             if (!empty($group)) {
-                //echo "string";
                 if (in_array("admin", $group)) {
                      //admin can not add users;
                        //if($this->request->params['action']!='add'){
@@ -28,7 +25,6 @@ class UsersController extends AppController {
      
     public function beforeFilter() {
         parent::beforeFilter();
-        //$this->Auth->allow('add','edit','delete','home');
         if(AuthComponent::user('group')){
             $group = json_decode(AuthComponent::user('group'));
             if (in_array("admin", $group)){
@@ -75,7 +71,7 @@ class UsersController extends AppController {
  
     public function index() { 
         $this->paginate = array(
-            'limit' => 6,
+            'limit' => 5,
             'order' => array('User.username' => 'asc' )
         );
         $users = $this->paginate('User');
