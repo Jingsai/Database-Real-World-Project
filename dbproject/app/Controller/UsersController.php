@@ -60,7 +60,8 @@ class UsersController extends AppController {
                 $this->Log->create();
                 $this->Log->save($logdata);
 
-                $this->Session->setFlash(__('Welcome, '. $this->Auth->user('username')));
+                $this->Session->setFlash(__('Welcome, '. $this->Auth->user('username')),
+                    'default',array('class'=>'font-size:10em;color:green;'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 $this->Session->setFlash(__('Invalid username or password'));
