@@ -1,6 +1,6 @@
 <?php
 class UsersController extends AppController {
- 
+    var $uses = array('User','Log');
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
@@ -42,12 +42,24 @@ class UsersController extends AppController {
  
  
     public function login() {
+        App::uses('CakeTime', 'Utility');
         if($this->Session->check('Auth.User')){
             return $this->redirect($this->Auth->redirectUrl());
         }
         // if we get the post information, try to authenticate
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                //write login log
+                $logdata['Log']['username'] = $this->request->data['User']['username'];
+                $logdata['Log']['ip'] = $this->RequestHandler->getClientIP(false);
+                if ($logdata['Log']['ip'] =='::1') {
+                    $logdata['Log']['ip'] = '127.0.0.1'; //::1 is local host in IPv6
+                }
+                $logdata['Log']['time'] = CakeTime::format(time(), '%Y-%m-%d %H:%M:%S');
+                $logdata['Log']['act'] = 'login';
+                $this->Log->create();
+                $this->Log->save($logdata);
+
                 $this->Session->setFlash(__('Welcome, '. $this->Auth->user('username')));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
@@ -60,7 +72,7 @@ class UsersController extends AppController {
         $this->redirect($this->Auth->logout());
     }
  
-    public function index() {
+    public function index() { 
         $this->paginate = array(
             'limit' => 6,
             'order' => array('User.username' => 'asc' )

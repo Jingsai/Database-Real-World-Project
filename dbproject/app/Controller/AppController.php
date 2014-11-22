@@ -70,7 +70,8 @@ class AppController extends Controller {
         'authError' => 'You must be logged in to view this page.',
         'loginError' => 'Invalid username or Password.', 
         'authorize' => array('Controller') 
-        )
+        ),
+    'RequestHandler',
     );
     public function beforeFilter() {
     parent::beforeFilter();
@@ -80,9 +81,9 @@ class AppController extends Controller {
 
     
 
-   public function isAuthorized($user) {
+   /*public function isAuthorized($user) {
         return false;
-    }
+    }*/
 
     public function loggedIn(){
         if($this->Auth->user){
