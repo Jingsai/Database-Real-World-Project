@@ -5,7 +5,7 @@ echo $this->Form->create('Revision');
 echo $this->Form->hidden('id');
 ?>
 
-<table width=100% border=0><tr><td width="60%" height="50%"><table width="100%" height="100" >
+<table width=100% border=1><tr><td width="60%" height="50%"><table width="100%" height="100" >
   <tr>
     <td>Tag No</td>
     <td>Rev#</td>
@@ -15,33 +15,19 @@ echo $this->Form->hidden('id');
     <td>Lead Time</td>
   </tr>
   <tr>
-    <td><?php echo $this->Form->input('no',array('label'=>false,'style'=>'width:50px;height:20px;margin:auto;'));?></td>
+    <td><?php echo $this->Form->input('no',array('label'=>false,'style'=>'width:50px;height:20px;'));?></td>
     <td><?php echo $this->Form->input('rev',array('div'=>false,'label'=>false,'style'=>'width:50px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('DATE',array('div'=>false,'label'=>false,'type'=>'text','style'=>'width:150px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('SubCategory',array('div'=>false,'label'=>false,'type'=>'text','style'=>'width:100px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('Complexity',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;margin:auto;'));?></td>
-    <td><?php echo $this->Form->input('Lead Time',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;margin:auto;'));?></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><?php echo $this->Form->input('Lead Time',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;'));?></td>
   </tr>
 </table></td><td width="0%"></td>
 <td width="50%">
 
 <table width="100%" height="375">
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
+    <td> <?php echo $this->Form->input('material',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;'));?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

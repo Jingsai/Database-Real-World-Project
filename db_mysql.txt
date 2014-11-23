@@ -67,4 +67,19 @@ Alter TABLE revisions ADD id INT primary key auto_increment
 # low case of column name
 alter table revisions change MATERIAL material FLOAT
 
+-====================================================
+Filmon 20141123 4:46pm
+--add lost column
+
+alter table revisions
+add Engineering float
+
+--populate the data
+UPDATE revisions SET Engineering = `INST COST` - `LABOR` - `material` 
+
+=============================================
+
+
+
+
 
