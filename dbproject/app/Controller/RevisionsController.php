@@ -13,7 +13,7 @@ class RevisionsController extends AppController{
 	public $paginate = array(
                 'limit' => 2,
                 'order' => array(
-                        'Revision.no' => 'asc'
+                        'Revision.no' => 'asc', 'Tagnumber.no' => 'asc'
                 )
         );
 
@@ -23,11 +23,22 @@ class RevisionsController extends AppController{
 		//xin yang
 		//2014.11.22 
  		//search and view the combined data from two tables in one page, : )
-			
+		
+				
+	
 		$this->Prg->commonProcess();
-       		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
+		
+		//print_r($this);
+	
+		//print_r($this->Revision->parseCriteria($this->Prg->parsedParams()));
+	
+		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
+       		
+		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
+       		//$this->Paginator->settings['conditions'] = $uses->parseCriteria($this->Prg->parsedParams());
                 $datas = $this->Paginator->paginate();	
 		
+       		//$datas->Paginator->settings['conditions'] = $datas->parseCriteria($datas->Prg->parsedParams());
 		
 		foreach ($datas as $key => $val){ 		
 		
@@ -53,9 +64,8 @@ class RevisionsController extends AppController{
 		}
 			
 	
-		//print_r($datas);
-
       		$this->set('revisions',$datas);
+			
       		//$this->set('revisions', $this->Paginator->paginate());
 	}
 

@@ -16,7 +16,6 @@
 	<th>Description<th>
 	<th>Sub Category<th>
 	<!-- <th>Notes</th> -->
-	<th>Material</th>
 	<th>Actions</th>	
     </tr>
 
@@ -31,7 +30,6 @@
         <td><?php echo $revision['Revision']['Description'];?></td> 
         <td><?php echo $revision['Revision']['SubCategory'];?></td>	
 	 <!-- <td><?php echo $revision['Revision']['Notes'];?></td>-->
-        <td><?php echo $revision['Revision']['material']; ?></td>
 	<td>  <?php
                 echo $this->Html->link(
                     'View',
@@ -60,14 +58,13 @@
 ?>
 <table>
     <tr>
-    <td><?php echo $this->Form->input('ID'); ?></td>
-    <td><?php echo $this->Form->input('no'); ?></td>
-    <td><?php echo $this->Form->input('Rev'); ?></td>	
-    <td><?php echo $this->Form->input('DATE'); ?></td> --> 
+    <td><?php echo $this->Form->input('ID', array('style' => 'width:30px')); ?></td>
+    <td><?php echo $this->Form->input('no', array('style' => 'width:55px')); ?></td>
+    <td><?php echo $this->Form->input('Rev',array('style' => 'width:20px')); ?></td>	
+    <td><?php echo $this->Form->input('DATE', array('style' => 'width:50px')); ?></td> 
     <td><?php echo $this->Form->input('Description'); ?></td>
-    <td><?php echo $this->Form->input('SubCategory'); ?></td>
+    <td><?php echo $this->Form->input('SubCategory', array('style' => 'width:100px')); ?></td>
 	<!-- <td><?php echo $this->Form->input('Notes'); ?></td> -->
-    <td><?php echo $this->Form->input('material'); ?></td>
     </tr>
 </table>
 
@@ -75,5 +72,6 @@
     echo $this->Form->submit(__('Submit'));
     echo $this->Form->end();
 ?>
+
 <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 

@@ -3,6 +3,10 @@ class Revision extends AppModel
 {
 	public $actsAs = array('Search.Searchable');
 
+	public $uses = array('Revision', 'Tagnumber');
+
+		
+
         public $filterArgs = array(
                
 		'no' => array(
@@ -15,11 +19,11 @@ class Revision extends AppModel
 		'field' => 'ID'
 		),
 
-		
-		'material' => array(	
-		'type' => 'value',
-		'field' => 'material'
-		)
+	
+		'Description' => array(		
+	   	'type' => 'like',
+                'field' => 'Description'
+                )
         );
 
 
