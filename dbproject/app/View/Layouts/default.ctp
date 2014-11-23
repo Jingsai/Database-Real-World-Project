@@ -56,7 +56,7 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
             <ul class="nav pull-right">
               <li>
                 <?php if (AuthComponent::user('id')): ?>
-                  <?php echo $this->Html->link(AuthComponent::user('username'),array('controller' => 'staticpages','action' => 'index'));?>
+                  <?php echo $this->Html->link(AuthComponent::user('username'),array('controller' => 'staticPages','action' => 'index'));?>
                   <?php else: ?>
                   <?php echo $this->Html->link('Login',array('controller' => 'users','action' => 'login'));?>
                 <?php endif ?>
