@@ -7,7 +7,7 @@
                 );
             ?>
 
-<table>
+<table >
     <tr>
         <th>Id</th>
 	<th>No</th>
