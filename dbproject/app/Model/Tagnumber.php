@@ -16,9 +16,9 @@ class Tagnumber extends AppModel
 		),
 
 		
-		'Sub Category' => array(	
+		'SubCategory' => array(	
 		'type' => 'like',
-		'field' => 'Sub Category'
+		'field' => 'SubCategory'
 		)
         );
 

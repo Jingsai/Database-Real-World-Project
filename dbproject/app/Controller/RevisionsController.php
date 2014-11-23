@@ -31,8 +31,10 @@ class RevisionsController extends AppController{
 		//print_r($this);
 	
 		//print_r($this->Revision->parseCriteria($this->Prg->parsedParams()));
-	
+
+			
 		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
+		//$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
        		
 		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
        		//$this->Paginator->settings['conditions'] = $uses->parseCriteria($this->Prg->parsedParams());
