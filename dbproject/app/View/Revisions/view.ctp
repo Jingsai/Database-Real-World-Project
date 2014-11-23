@@ -18,7 +18,7 @@ echo $this->Form->hidden('id');
     <td><?php echo $this->Form->input('no',array('label'=>false,'style'=>'width:50px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('rev',array('div'=>false,'label'=>false,'style'=>'width:50px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('DATE',array('div'=>false,'label'=>false,'type'=>'text','style'=>'width:150px;height:20px;margin:auto;'));?></td>
-    <td><?php echo $this->Form->input('description',array('div'=>false,'label'=>false,'type'=>'text','style'=>'width:100px;height:20px;margin:auto;'));?></td>
+    <td><?php echo $this->Form->input('SubCategory',array('div'=>false,'label'=>false,'type'=>'text','style'=>'width:100px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('Complexity',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;margin:auto;'));?></td>
     <td><?php echo $this->Form->input('Lead Time',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;margin:auto;'));?></td>
   </tr>
