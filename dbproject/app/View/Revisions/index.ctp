@@ -75,4 +75,5 @@
     echo $this->Form->submit(__('Submit'));
     echo $this->Form->end();
 ?>
+<?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 

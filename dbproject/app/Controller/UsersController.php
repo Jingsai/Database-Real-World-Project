@@ -7,12 +7,9 @@ class UsersController extends AppController {
         'order' => array('User.username' => 'asc' ) 
     );
     public function isAuthorized($user) {
-        //echo “nihao”;
        // parent::isAuthorized();
             $group = json_decode(AuthComponent::user('group'));
-            //var_dump($group);
             if (!empty($group)) {
-                //echo "string";
                 if (in_array("admin", $group)) {
                      //admin can not add users;
                        //if($this->request->params['action']!='add'){
@@ -28,7 +25,6 @@ class UsersController extends AppController {
      
     public function beforeFilter() {
         parent::beforeFilter();
-        //$this->Auth->allow('add','edit','delete','home');
         if(AuthComponent::user('group')){
             $group = json_decode(AuthComponent::user('group'));
             if (in_array("admin", $group)){
@@ -135,7 +131,7 @@ class UsersController extends AppController {
                 $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']);
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('The user has been updated'));
-                    $this->redirect(array('action' => 'edit', $id));
+                    $this->redirect(array('action' => 'index'));
                 }else{
                     $this->Session->setFlash(__('Unable to update your user.'));
                 }
