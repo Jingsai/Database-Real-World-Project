@@ -17,3 +17,9 @@ echo $this->Form->hidden('id');
 echo $this->Form->input('material');
 //echo $this->Form->end('Save Revisoin');
 ?>
+
+<?php
+echo $this->Form->input('Description');
+?>
+
+<?php echo $this->Form->input('SubCategory');?>

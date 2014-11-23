@@ -1,10 +1,17 @@
 <?php
 class RevisionsController extends AppController{
 	
+
 	public $components=array('Search.Prg','Paginator');
 
+
+	public $uses = array(
+			'Revision',
+			'Tagnumber');
+	
+
 	public $paginate = array(
-                'limit' => 25,
+                'limit' => 2,
                 'order' => array(
                         'Revision.no' => 'asc'
                 )
@@ -13,27 +20,85 @@ class RevisionsController extends AppController{
        // public $helpers = array('Html', 'Form');
         public function index()
 	{
+		//xin yang
+		//2014.11.22 
+ 		//search and view the combined data from two tables in one page, : )
+			
 		$this->Prg->commonProcess();
        		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
-      		$this->set('revisions', $this->Paginator->paginate());	
-        }
-        public function view( $id=null ){
+                $datas = $this->Paginator->paginate();	
+		
+		
+		foreach ($datas as $key => $val){ 		
+		
+                $tagnumbers = $this->Tagnumber->findByNo($val['Revision']['no']);
+
+		//print_r($tagnumbers);	
+		
+		if(empty($tagnumbers))
+		{
+	
+                        $datas[$key]['Revision']['Description'] = "";
+			$datas[$key]['Revision']['SubCategory'] = "";
+			
+		}	
+		else
+		{		
+			$datas[$key]['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION'];			
+			$datas[$key]['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];			
+	                print_r($datas);
+                       // return false;
+               }
+		
+		}
+			
+	
+		//print_r($datas);
+
+      		$this->set('revisions',$datas);
+      		//$this->set('revisions', $this->Paginator->paginate());
+	}
+
+        public function view( $id = null , $no = null){
                 if (!$id) {
                         throw new NotFoundException(__('Invalid post'));
                 }
+
                 $revisions= $this->Revision->findById($id);
+                $tagnumbers = $this->Tagnumber->findByNo($no);
+		
+		if(empty($tagnumbers))
+		{	
+             		$revisions['Revision']['Description'] = ""; 
+	        	$revisions['Revision']['SubCategory'] = "";	
+		}
+		else
+		{	
+             		$revisions['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION']; 
+	       		$revisions['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];	
+		}
+		//print_r($revisions);
+		//print_r($this->Revision->findByNo(5660));
+                //print "<br>";
+		//print_r($tagnumbers);
+
         if (!$revisions) {
             throw new NotFoundException(__('Invalid post'));
         }
         
-		if ($this->request->is(array('post','put')))
+		if ($this->request->is(array('revision','put')))
 		{
 		
 			$this->Revision->id=$id;			
 		}
+
 		if (!$this->request->data )
 		{
-		 	$this->request->data = $revisions;
+		 	$this->request->data = $revisions;	
+								
+			//$tagnumbers = $this->Tagnumber->findByNo($no);
+		 	//$this->request->data = $tagnumbers;
+			//print_r($this->request->data = $tagnumbers);
 		} 
 		
 	}
