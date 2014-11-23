@@ -47,9 +47,7 @@
         <?php unset($user); ?>
     </tbody>
 </table>
-    <?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-    <?php echo $this->Paginator->numbers(array('class' => 'numbers'));?>
-    <?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
+    <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 </div>  
 
 

@@ -71,7 +71,7 @@ class UsersController extends AppController {
  
     public function index() { 
         $this->paginate = array(
-            'limit' => 5,
+            'limit' => 6,
             'order' => array('User.username' => 'asc' )
         );
         $users = $this->paginate('User');
