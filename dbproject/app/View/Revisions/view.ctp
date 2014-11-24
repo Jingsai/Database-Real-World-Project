@@ -59,10 +59,10 @@ table, th, td
 	<td colspan="3">
 	<table width="100px">
 	<tr><td> </td> <td>USA$ </td> <td>Canada$</td><td>Mexico$</td></tr>
-	<tr><td> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td> </td> <td> </td> <td></td><td></td></tr>
+	<tr><td><?php echo $this->Form->input('hvl',array('label'=>'HVL','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
+	<tr><td><?php echo $this->Form->input('HVL/CC',array('label'=>'HVL/CC','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
+	<tr><td><?php echo $this->Form->input('Metal Clad',array('label'=>'Metal Clad','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
+	<tr><td><?php echo $this->Form->input('MVMCC',array('label'=>'MVMCC','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
 	</table>
 	</td>
   </tr>
