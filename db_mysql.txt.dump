@@ -1,0 +1,90 @@
+-- this is for modifying the relationship between tables
+--========================================================
+alter table complexity
+add primary key(complexity)
+
+ALTER TABLE `TAG Member Names` 
+ADD PRIMARY KEY ( `TAG Member` ) 
+
+ALTER TABLE `Tag Number` 
+ADD PRIMARY KEY ( `NO` )  
+
+ALTER TABLE `Applied FO` 
+ADD PRIMARY KEY ( ID ) 
+
+ ALTER TABLE `Revision`
+ ADD FOREIGN KEY ( `Complexity` )
+ REFERENCES `complexity` ( `complexity` ) 
+
+ALTER TABLE `Revision` 
+ADD FOREIGN KEY ( `TAG Member` ) 
+REFERENCES `TAG Member Names` ( `TAG Member` ) 
+
+--========================================================
+—-20141114 12:27pm
+—- creating table user
+
+delete the user table before creation
+
+CREATE TABLE users(
+	`id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`username` VARCHAR(128),
+	`password` VARCHAR(128),
+	`email` VARCHAR(128),
+	`type` VARCHAR(64),
+	`created` DATETIME DEFAULT NULL,
+	`modified` DATETIME DEFAULT NULL,
+	`status` tinyint(1) NOT NULL DEFAULT '1'
+);
+
+
+--========================================================
+jingsai-20141120 9:27pm
+ALTER TABLE `users`
+change `type` `group` varchar(64) DEFAULT NULL;
+
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `group`, `created`, `modified`, `status`) VALUES
+(1, 'Adam', '5b710b415de338f7b04585b89917e8d24a1fc49e', 'adam@gmail.com', '["admin"]', '2014-11-15 02:34:16', '2014-11-15 02:34:16', 1);
+
+-=====================================================
+jingsai 20141121 4:48pm creat table logs
+
+CREATE TABLE IF NOT EXISTS logs
+(
+ id int primary key,
+ username varchar(128),
+ ip varchar(64) DEFAULT NULL,
+ time datetime DEFAULT NULL,
+ act varchar(128)
+);
+alter table logs modify column id int auto_increment;
+
+======================================================
+# add id to revisions as primary key
+Alter TABLE revisions ADD id INT primary key auto_increment
+
+# low case of column name
+alter table revisions change MATERIAL material FLOAT
+
+-====================================================
+Filmon 20141123 4:46pm
+--add lost column
+
+alter table revisions
+add Engineering float
+
+--populate the data
+UPDATE revisions SET Engineering = `INST COST` - `LABOR` - `material` 
+
+=============================================
+Jingsai 11/24/2014  03:21   For admin to modify these two tables
+
+rename table complexity  to complexities
+// the following step to change it by manually
+rename table 'Country & Adjustment'  to countries
+Alter TABLE countries  ADD id INT primary key auto_increment
+
+
+
+

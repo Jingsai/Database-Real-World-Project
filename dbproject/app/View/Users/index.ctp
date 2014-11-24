@@ -2,7 +2,8 @@
 <div class="users form">
 <h1>Users</h1>            
 <?php echo $this->Html->link( "Add A New User.",   array('action'=>'add'),array('escape' => false) ); ?>
-<input id="btnPrint" type="button" value="Print"  onclick=preview() />
+<!--<input id="btnPrint" type="button" value="Print"  onclick=preview() />-->
+<p align="right" id="demo" onclick="preview()">Print</p> 
 <input id="username" type = "hidden" value = "<?php echo AuthComponent::user('username'); ?>"> 
 <input id="webroot" type="hidden" value = "<?php echo $this->webroot; ?>">
 <br/>
@@ -54,7 +55,8 @@
 </div>
     <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 </div>  
-<script>  
+<?php echo $this->Html->script('print')?>
+<!--<script>  
     function preview(){ 
         //alter(WEBROOT_DIR);
 
@@ -70,6 +72,6 @@
         window.document.body.innerHTML = imghtml+"<p>"+comName+space+ datetime+space+printname+"</p>" + html;
         window.print();    
     }
-</script> 
+</script> -->
 
 
