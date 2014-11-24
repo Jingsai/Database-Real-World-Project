@@ -1,8 +1,8 @@
 function preview(){
 	var html = document.getElementById("myprint").innerHTML;
     var printname = $("#username").val();
-    var imgurl = $("#webroot").val() + "img/se_logo.gif";
-    var imghtml = '<img src = "'+imgurl + '>';
+    //var imgurl = $("#webroot").val() + "img/se_logo.gif";
+    //var imghtml_1 = '<img src = "'+imgurl + '>';
     var comName = "Schneider Electric";
     var currentdate = new Date(); 
     var datetime = currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
