@@ -134,7 +134,7 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
 
     <div id="footer">
 
-      <footer>
+      <footer style="text-align: center;">
         <p>&copy; 2014 Company, Inc. &middot; <a href="#" style="color:#32cd32">Privacy</a> &middot; <a href="#" style="color:#32cd32">Terms</a></p>
       </footer>
       
