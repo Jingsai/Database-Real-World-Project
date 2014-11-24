@@ -95,7 +95,7 @@ class RevisionsController extends AppController{
 		if (!$this->request->data )
 		{
 		 	$this->request->data = $revisions;	
-								
+			//print_r($this->request->data);								
 			//$tagnumbers = $this->Tagnumber->findByNo($no);
 		 	//$this->request->data = $tagnumbers;
 			//print_r($this->request->data = $tagnumbers);
