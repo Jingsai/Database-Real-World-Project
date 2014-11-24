@@ -1,6 +1,8 @@
 <?php
 class Revision extends AppModel
 {
+
+
 	public $actsAs = array('Search.Searchable');
 
 	public $uses = array('Revision');
@@ -40,5 +42,7 @@ class Revision extends AppModel
             'rule' => 'notEmpty'
         )
     );
+
+
 
 }

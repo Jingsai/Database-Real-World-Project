@@ -136,7 +136,7 @@ class UsersController extends AppController {
                     $this->Session->setFlash(__('Unable to update your user.'));
                 }
             }
- 
+            
             if (!$this->request->data) {
                 $this->request->data = $user;
             }

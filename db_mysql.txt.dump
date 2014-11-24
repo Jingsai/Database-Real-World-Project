@@ -21,8 +21,8 @@ ADD FOREIGN KEY ( `TAG Member` )
 REFERENCES `TAG Member Names` ( `TAG Member` ) 
 
 --========================================================
-¡ª-20141114 12:27pm
-¡ª- creating table user
+â€”-20141114 12:27pm
+â€”- creating table user
 
 delete the user table before creation
 

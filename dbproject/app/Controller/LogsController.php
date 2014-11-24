@@ -27,7 +27,7 @@ class LogsController extends AppController {
      public $paginate = array(
         'limit' => 25,
         'conditions' => array('act' => 'login'),
-        'order' => array('Log.time' => 'asc' ) 
+        'order' => array('Log.time' => 'desc' ) 
     );
 
 	public function index(){

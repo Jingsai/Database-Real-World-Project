@@ -2,10 +2,15 @@
 <div class="users form">
 <h1>Users</h1>            
 <?php echo $this->Html->link( "Add A New User.",   array('action'=>'add'),array('escape' => false) ); ?>
+<!--<input id="btnPrint" type="button" value="Print"  onclick=preview() />-->
+<p align="right" id="demo" onclick="preview()">Print</p> 
+<input id="username" type = "hidden" value = "<?php echo AuthComponent::user('username'); ?>"> 
+<input id="webroot" type="hidden" value = "<?php echo $this->webroot; ?>">
 <br/>
 <!--<?php 
     echo $this->Html->link( "Logout",   array('action'=>'logout') ); 
 ?>-->
+<div id = "myprint" >
 <table>
     <thead>
         <tr>
@@ -47,7 +52,26 @@
         <?php unset($user); ?>
     </tbody>
 </table>
+</div>
     <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 </div>  
+<?php echo $this->Html->script('print')?>
+<!--<script>  
+    function preview(){ 
+        //alter(WEBROOT_DIR);
+
+        var html = document.getElementById("myprint").innerHTML;
+        var printname = $("#username").val();
+        var imgurl = $("#webroot").val() + "img/se_logo.gif";
+        var imghtml = '<img src = "'+imgurl + '>';
+        var comName = "Schneider Electric";
+        var currentdate = new Date(); 
+        var datetime = currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+        var space = "&nbsp;&nbsp;&nbsp&nbsp";
+        var imghtml = '<img src ="/html/dbproject/img/se_logo.gif">';
+        window.document.body.innerHTML = imghtml+"<p>"+comName+space+ datetime+space+printname+"</p>" + html;
+        window.print();    
+    }
+</script> -->
 
 
