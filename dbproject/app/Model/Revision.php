@@ -5,7 +5,10 @@ class Revision extends AppModel
 
 	public $actsAs = array('Search.Searchable');
 
-        public $filterArgs = array(
+	public $uses = array('Revision');
+	
+        
+	public $filterArgs = array(
                
 		'no' => array(
                 'type' => 'value',
@@ -18,10 +21,16 @@ class Revision extends AppModel
 		),
 
 		
-		'material' => array(	
-		'type' => 'value',
-		'field' => 'material'
-		)
+		'Description' => array(		
+	   	'type' => 'like',
+                'field' => 'Description'
+		),
+		
+		'SubCategory' => array(
+		'type' => 'like',
+		'field' => 'SubCategory'
+		)		
+		
         );
 
 
