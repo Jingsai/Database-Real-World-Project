@@ -5,9 +5,9 @@ class Tagnumber extends AppModel
 
         public $filterArgs = array(
                
-		'NO' => array(
+		'no' => array(
                 'type' => 'value',
-                'field' => 'NO'
+                'field' => 'no'
                 ),
 		
 		'DESCRIOTION' => array(

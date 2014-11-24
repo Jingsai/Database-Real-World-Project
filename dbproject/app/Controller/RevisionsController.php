@@ -11,10 +11,18 @@ class RevisionsController extends AppController{
 	
 
 	public $paginate = array(
-                'limit' => 2,
-                'order' => array(
-                        'Revision.no' => 'asc', 'Tagnumber.no' => 'asc'
-                )
+
+		'Revision' => array(
+                	'limit' => 2,
+                	'order' => array(
+                	'Revision.no' => 'asc'
+                	)
+		),
+		
+		'Tagnumber' => array(
+			'limit' => 2,
+			'maxLimit' => 100
+		)
         );
 
        // public $helpers = array('Html', 'Form');
@@ -24,51 +32,94 @@ class RevisionsController extends AppController{
 		//2014.11.22 
  		//search and view the combined data from two tables in one page, : )
 		
-				
-	
-		$this->Prg->commonProcess();
-		
-		//print_r($this);
-	
-		//print_r($this->Revision->parseCriteria($this->Prg->parsedParams()));
-
+		$datas = $this->Paginator->paginate();
 			
-		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
-		//$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
-       		
-		$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria($this->Prg->parsedParams());
-       		//$this->Paginator->settings['conditions'] = $uses->parseCriteria($this->Prg->parsedParams());
-                $datas = $this->Paginator->paginate();	
-		
-       		//$datas->Paginator->settings['conditions'] = $datas->parseCriteria($datas->Prg->parsedParams());
-		
-		foreach ($datas as $key => $val){ 		
-		
-                $tagnumbers = $this->Tagnumber->findByNo($val['Revision']['no']);
-
-		//print_r($tagnumbers);	
-		
-		if(empty($tagnumbers))
+                $params = $this->request->data;
+	
+		if(!empty($params['Revision']['SubCategory']))
 		{
-	
-                        $datas[$key]['Revision']['Description'] = "";
-			$datas[$key]['Revision']['SubCategory'] = "";
+				$tags = $this->Tagnumber->findBySubcategory($params['Revision']['SubCategory']);				
+				$newtag = $this->Tagnumber->find('all',
+					array(
+					'conditions' => array('Tagnumber.SubCategory' => $params['Revision']['SubCategory'])
+					)
+					);
+
+				$params['Revision']['no'] = $tags['Tagnumber']['no'];
 			
-		}	
-		else
-		{		
-			$datas[$key]['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION'];			
-			$datas[$key]['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];			
-	               // print_r($datas);
-                       // return false;
-               }
+				$this->Paginator->settings['conditions'] = $this->Revision->parseCriteria(array(
+											'no' => $params['Revision']['no'],
+											'ID' => $params['Revision']['ID'],
+											'Description' => ""));
+			
+			foreach ($newtag as $key => $val)
+			{ 		
+				
+                		$revisions = $this->Revision->findByNo($val['Tagnumber']['no']);
+		
+				if(empty($revisions))
+				{
+					$mydatas[$key]['Revision']['no'] = "";
+					$mydatas[$key]['Revision']['id'] = "";
+					$mydatas[$key]['Revision']['rev'] = "";
+					$mydatas[$key]['Revision']['DATE'] = "";
+					$mydatas[$key]['Revision']['Description'] = $newtag[$key]['Tagnumber']['DESCRIPTION'];
+					$mydatas[$key]['Revision']['SubCategory'] = $newtag[$key]['Tagnumber']['SubCategory'];
+					
+				}	
+				else
+				{
+					
+					
+					$mydatas[$key]['Revision']['DATE'] = $revisions['Revision']['DATE'];			
+					$mydatas[$key]['Revision']['rev']  = $revisions['Revision']['rev'];			
+					$mydatas[$key]['Revision']['no']   = $revisions['Revision']['no'];	
+					$mydatas[$key]['Revision']['id']   = $revisions['Revision']['id'];
+					$mydatas[$key]['Revision']['Description'] = $newtag[$key]['Tagnumber']['DESCRIPTION'];			
+					$mydatas[$key]['Revision']['SubCategory'] = $newtag[$key]['Tagnumber']['SubCategory'];			
+        	       		}
 		
 		}
+      			$this->set('revisions',$mydatas);		
+		}
+		else
+		{
 			
+				
+			if(!empty($params['Revision']['no']))
+			{
+                		$datas = $this->Revision->find('all',
+					array(
+                                        'conditions' => array('Revision.no' => $params['Revision']['no'])
+                                        )
+                                        );
+			}
+
+			foreach ($datas as $key => $val)
+			{ 		
+				
+                		$tagnumbers = $this->Tagnumber->findByNo($val['Revision']['no']);
+
+		
+				if(empty($tagnumbers))
+				{
 	
-      		$this->set('revisions',$datas);
+                        		$datas[$key]['Revision']['Description'] = "";
+					$datas[$key]['Revision']['SubCategory'] = "";
 			
-      		//$this->set('revisions', $this->Paginator->paginate());
+				}	
+				else
+				{		
+					$datas[$key]['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION'];			
+					$datas[$key]['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];			
+        	       		}
+		
+			}
+			
+			
+      			$this->set('revisions',$datas);		
+	
+		}
 	}
 
         public function view( $id = null , $no = null){
