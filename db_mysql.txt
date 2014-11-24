@@ -78,7 +78,12 @@ add Engineering float
 UPDATE revisions SET Engineering = `INST COST` - `LABOR` - `material` 
 
 =============================================
+Jingsai 11/24/2014  03:21   For admin to modify these two tables
 
+rename table complexity  to complexities
+// the following step to change it by manually
+rename table 'Country & Adjustment'  to countries
+Alter TABLE complexities  ADD id INT primary key auto_increment
 
 
 

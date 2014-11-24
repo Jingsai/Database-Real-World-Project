@@ -1,6 +1,11 @@
 
 <div class="form">
-<h1>Logs</h1>            
+<h1>Logs</h1>   
+<input id="btnPrint" type="button" value="Print" onclick=preview() />
+<input id="username" type = "hidden" value = "<?php echo AuthComponent::user('username'); ?>"> 
+<input id="webroot" type="hidden" value = "<?php echo $this->webroot; ?>">
+
+<div id = "myprint">        
 <table>
     <thead>
         <tr>
@@ -27,7 +32,24 @@
         <?php unset($log); ?>
     </tbody>
 </table>
+</div>
     <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 </div> 
+<script>  
+    function preview(){ 
+        //alter(WEBROOT_DIR);
 
+        var html = document.getElementById("myprint").innerHTML;
+        var printname = $("#username").val();
+        var imgurl = $("#webroot").val() + "img/se_logo.gif";
+        var imghtml = '<img src = "'+imgurl + '>';
+        var comName = "Schneider Electric";
+        var currentdate = new Date(); 
+        var datetime = currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+        var space = "&nbsp;&nbsp;&nbsp&nbsp";
+        var imghtml = '<img src ="/html/dbproject/img/se_logo.gif">';
+        window.document.body.innerHTML = imghtml+"<p>"+comName+space+ datetime+space+printname+"</p>" + html;
+        window.print();    
+    }
+</script> 
 

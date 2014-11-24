@@ -80,13 +80,14 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
               <?php endif ?>
               </li>
               <li>
-                <?php if (AuthComponent::user('id')): ?>
-                  <?php echo $this->Html->link('Logout',array('controller' => 'users','action' => 'Logout'));?>
+              <?php $group = json_decode(AuthComponent::user('group'));
+                if (AuthComponent::user('id') && in_array("admin", $group)): ?>
+                  <?php echo $this->Html->link('ModifyParameters',array('controller' => 'modifyParas','action' => 'index'));?>
                 <?php endif ?>
               </li>
               <li>
                 <?php if (AuthComponent::user('id')): ?>
-                  <?php echo $this->Html->link('Print',array('controller' => 'prints','action' => 'printpage'));?>
+                  <?php echo $this->Html->link('Logout',array('controller' => 'users','action' => 'Logout'));?>
                 <?php endif ?>
               </li>
             </ul>
@@ -134,7 +135,7 @@ $cakeDescription = __d('cake_dev', 'Schneider Electric');
 
     <div id="footer">
 
-      <footer>
+      <footer style="text-align: center;">
         <p>&copy; 2014 Company, Inc. &middot; <a href="#" style="color:#32cd32">Privacy</a> &middot; <a href="#" style="color:#32cd32">Terms</a></p>
       </footer>
       
