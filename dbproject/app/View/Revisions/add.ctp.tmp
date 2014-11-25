@@ -9,9 +9,9 @@ echo $this->Form->hidden('id');
 <tr> <td>Tag No </td><td>Rev#</td><td>Lead Time</td><td>Canada L. Price </td> </tr>
 <tr> <td><?php echo $this->Form->input('no',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td> <?php echo $this->Form->input('rev',array('default'=>'0','label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?></td> <td><?php echo $this->Form->input('Lead Time',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('Can LIST PRICE',array('default'=>'0','label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> </tr>
 <tr> <td>US L. Price </td><td>Date</td><td>Material</td> <td>Labor </td> </tr>
-<tr> <td><?php echo $this->Form->input('US LIST PRICE',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('DATE',array('type'=>'date','dateFormat'=>'M-D-Y','label'=>false,'style'=>'width:100px;height:32px;padding:5px;'));?></td> <td><?php echo $this->Form->input('material',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('LABOR',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> </tr>
-<tr><td>Burden </td> <td>Country </td> </tr>
-<tr> <td><?php echo $this->Form->input('BURDEN',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> <td><?php echo $this->Form->input('country',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> </tr>
+<tr> <td><?php echo $this->Form->input('US LIST PRICE',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('DATE',array('type'=>'date','dateFormat'=>'M-D-Y','label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?></td> <td><?php echo $this->Form->input('material',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('LABOR',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> </tr>
+<tr><td>Burden </td> <td>Tag Member Id </td> <td>Country </td> </tr>
+<tr> <td><?php echo $this->Form->input('BURDEN',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td><td><?php echo $this->Form->input('tagmembername_id',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> <td><?php echo $this->Form->input('country',array('label'=>false,'style'=>'width:100px;height:20px;padding:5px;'));?> </td> </tr>
 <tr> <td colspan="8">Price Note </td> </tr>
 <tr> <td colspan="8"><?php echo $this->Form->input('Price Notes',array('label'=>false,'style'=>'width:900px;height:20px;padding:5px;'));?> </td> </tr>
 <tr> <td> Complexity</td><td>Tag Notes</td> </tr>
@@ -24,5 +24,5 @@ echo $this->Form->hidden('id');
 
 </table>
 <?php
-echo $this->Form->end('Save New Tag');
+echo $this->Form->end('Save Revision');
 ?>

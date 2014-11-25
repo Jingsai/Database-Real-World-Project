@@ -21,8 +21,13 @@ table, th, td
                     array('action' => 'edit', $this->request->data['Revision']['id'],$this->request->data['Revision']['no']));
             ?>
 <?php endif ?>
- 
 </p>
+
+<p align="right" id="demo" onclick="preview()">Print</p> 
+<input id="username" type = "hidden" value = "<?php echo AuthComponent::user('username'); ?>"> 
+<input id="webroot" type="hidden" value = "<?php echo $this->webroot; ?>">
+<div id = "myprint" >
+
 <table cellspacing="0" width=100% border=0 height="50%">
 <tr height="50%">
  <td width= height="50%">
@@ -102,5 +107,6 @@ table, th, td
  </td>
 </tr>
 </table>
-
+</div>  
+<?php echo $this->Html->script('print')?>
 
