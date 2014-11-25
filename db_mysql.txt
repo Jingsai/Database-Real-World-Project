@@ -86,10 +86,26 @@ rename table 'Country & Adjustment'  to countries
 Alter TABLE countries  ADD id INT primary key auto_increment
 
 
+=====================================================
+Filmon 20141124 3:48pm
+ rename Product Type to producttypes
+--renamed the attribut for product types
+alter table producttypes
+change `Product Type` producttype varchar(100)
+
+
+=============================================
+Jingsai 11/24/2014  03:21   For admin to modify these two tables
+
+rename table complexity  to complexities
+// the following step to change it by manually
+rename table 'Country & Adjustment'  to countries
+Alter TABLE countries  ADD id INT primary key auto_increment
+
+
 rename table `TAG Member Names`  to tagmembernames
 Alter TABLE tagmembernames ADD id INT primary key auto_increment
 alter table tagmembernames change `TAG Member` id INT
 alter table revisions change `TAG Member` tagmembername_id INT
 alter table revisions change `revision obsolete` revision_obsolete char(1)
-
 

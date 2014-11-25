@@ -5,25 +5,25 @@ class RevisionsController extends AppController{
 	public $components=array('Search.Prg','Paginator');
 
 
-	public $uses = array('Revision','Tagnumber','Tagmembername');
-	//public $uses = array('Revision','Tagmembername');
-	//public $uses = array('Revision');
+	public $uses = array(
+			'Revision',
+			'Tagnumber','Producttype','Country','Tagmembername');
+	
 
 	public $paginate = array(
 
 		'Revision' => array(
-			'limit' => 2,
-			'order' => array(
-				'Revision.no' => 'asc'
-				)
-			),
+                	'limit' => 2,
+                	'order' => array(
+                	'Revision.no' => 'asc'
+                	)
+		),
 		
 		'Tagnumber' => array(
 			'limit' => 2,
 			'maxLimit' => 100
-			)
-		);
-
+		)
+        );
 
 	public function index()
 	{
@@ -54,52 +54,85 @@ class RevisionsController extends AppController{
 		}
 	}
 
-	public function view( $id = null , $no = null){
-		if (!$id) {
-			throw new NotFoundException(__('Invalid post'));
-		}
+	public function getProMulti($prottype=NULL)
+	{
+		$promulti=$this->Producttype->findByProducttype($prottype);
+		return $promulti['Producttype']['Multiplyer'];
 
-		$revisions= $this->Revision->findById($id);
-		$tagnumbers = $this->Tagnumber->findByNo($no);
-		
+	}
+
+      public function view( $id = null , $no = null){
+                if (!$id) {
+                        throw new NotFoundException(__('Invalid post'));
+                }
+
+                $revisions= $this->Revision->findById($id);
+                $tagnumbers = $this->Tagnumber->findByNo($no);
+		$countries=$this->Country->find('all');
+		$products=$this->Producttype->find('all');
 		if(empty($tagnumbers))
 		{	
-			$revisions['Revision']['Description'] = ""; 
-			$revisions['Revision']['SubCategory'] = "";	
+             		$revisions['Revision']['Description'] = ""; 
+	        	$revisions['Revision']['SubCategory'] = "";	
 		}
 		else
 		{	
-			$revisions['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION']; 
-			$revisions['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];	
+             		$revisions['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION']; 
+	       		$revisions['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];	
 		}
+		$revisions['Revision']['installcost']=$revisions['Revision']['material']+$revisions['Revision']['LABOR']+$revisions['Revision']['Engineering']; 
+		$revisions['Revision']['hvlusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('HVL');
+		$revisions['Revision']['hvlcanada']=$revisions['Revision']['installcost']*$countries[0]['Country']['Canada']*$this->getProMulti('HVL');
+		$revisions['Revision']['hvlmexico']=$revisions['Revision']['installcost']*$countries[0]['Country']['Mexico']*$this->getProMulti('HVL');
+		
+		$revisions['Revision']['hvlccusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('HVL/CC');
+		$revisions['Revision']['hvlccanada']=$revisions['Revision']['installcost']*$countries[0]['Country']['Canada']*$this->getProMulti('HVL/CC');
+		$revisions['Revision']['hvlccmexico']=$revisions['Revision']['installcost']*$countries[0]['Country']['Mexico']*$this->getProMulti('HVL/CC');
+		
+		$revisions['Revision']['metalusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('Metal Clad');
+		$revisions['Revision']['metalcanada']=$revisions['Revision']['installcost']*$countries[0]['Country']['Canada']*$this->getProMulti('Metal Clad');
+		$revisions['Revision']['metalmexico']=$revisions['Revision']['installcost']*$countries[0]['Country']['Mexico']*$this->getProMulti('Metal Clad');
+
+		
+		$revisions['Revision']['mvusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('MVMCC');
+		$revisions['Revision']['mvcanada']=$revisions['Revision']['installcost']*$countries[0]['Country']['Canada']*$this->getProMulti('MVMCC');
+		$revisions['Revision']['mvmexico']=$revisions['Revision']['installcost']*$countries[0]['Country']['Mexico']*$this->getProMulti('MVMCC');
+	//	print_r($revisions['Revision']['installcost']*$countries['Country']['USA']*$this->getProMulti('HVL'));	
 		//print_r($revisions);
 		//print_r($this->Revision->findByNo(5660));
                 //print "<br>";
 		//print_r($tagnumbers);
+		$revisions['Revision']['tagmembername']=$this->Tagmembername->findById($revisions['Revision']['tagmembername_id'])['Tagmembername']['Name'];
+		App::uses('CakeTime','Utility');
+		$edate=$revisions['Revision']['DATE'];
+		$emonth=$revisions['Revision']['price expiration'];
 
-		if (!$revisions) {
-			throw new NotFoundException(__('Invalid post'));
-		}
-
+		$revisions['Revision']['DATE']=CakeTime::format($edate);
+		$revisions['Revision']['expprice']=CakeTime::format($edate.'+'.$emonth.'months');
+	   if (!$revisions) {
+            throw new NotFoundException(__('Invalid post'));
+        }
+        
 		if ($this->request->is(array('post','put')))
 		{
-
+		
 			$this->Revision->id=$id;			
 		}
 
 		if (!$this->request->data )
 		{
-			$this->request->data = $revisions;	
+		 	$this->request->data = $revisions;	
 			//print_r($this->request->data);								
 			//$tagnumbers = $this->Tagnumber->findByNo($no);
 		 	//$this->request->data = $tagnumbers;
 			//print_r($this->request->data = $tagnumbers);
 		} 
+	//	$this->set('producttypes',$products);
 		
 	}
-	public function edit($id=null) 
+         public function edit($id=null) 
 	{	
-
+			
 		//$this->set('revisions',$this->Revision->findByNo(5500));
 		if(!$id)
 			throw new NotFoundException(_('Invalid post'));
@@ -126,48 +159,48 @@ class RevisionsController extends AppController{
 		}
 		if (!$this->request->data )
 		{
-			$this->request->data = $revisions;
+		 	$this->request->data = $revisions;
 		} 
-	}
+        }
 //XIXXI
 
 //Jingsai allow action or deny action
-	public function isAuthorized($user) {
-		$group = json_decode(AuthComponent::user('group'));
+    public function isAuthorized($user) {
+        $group = json_decode(AuthComponent::user('group'));
         // $group = array(0 => 'tagmemebers')
-		if (!empty($group)) {
-			if (in_array("tagmembers", $group) || in_array("oe", $group)) {
+        if (!empty($group)) {
+        	if (in_array("tagmembers", $group) || in_array("oe", $group)) {
            		 //admin can not add users;
             	//if($this->request->params['action']!='add'){
             		//return true;
             	//}
-				return true;
-			}
-			if (in_array("oe", $group)) {
+            	return true;
+            }
+            if (in_array("oe", $group)) {
                 //oe can not edit
-				if ($this->request->params['action'] != 'edit') {
-					return true;
-				}
-			}
+            	if ($this->request->params['action'] != 'edit') {
+            		return true;
+            	}
+            }
 
-		}
-		$this->Session->setFlash(__('Action deny.'));
-		$this->redirect($this->Auth->redirectUrl());
-		return false;      
-	}
+        }
+            $this->Session->setFlash(__('Action deny.'));
+            $this->redirect($this->Auth->redirectUrl());
+            return false;      
+    }
 
-	public function beforeFilter() {
-		parent::beforeFilter();
-		if(AuthComponent::user('group')){
-			$group = json_decode(AuthComponent::user('group'));
-			if (in_array("tagmembers", $group) || in_array("oe", $group)){
-				$this->Auth->allow('edit','index');
-			}
-			if(in_array("user", $group)){
-				$this->Auth->allow('index');
-			}
-		}
-	}
+	 public function beforeFilter() {
+        parent::beforeFilter();
+        if(AuthComponent::user('group')){
+            $group = json_decode(AuthComponent::user('group'));
+            if (in_array("tagmembers", $group) || in_array("oe", $group)){
+                $this->Auth->allow('edit','index');
+            }
+            if(in_array("user", $group)){
+                $this->Auth->allow('index');
+            }
+        }
+    }
 	
 
 

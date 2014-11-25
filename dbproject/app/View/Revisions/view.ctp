@@ -7,17 +7,17 @@ echo $this->Form->hidden('id');
 <style>
 table, th, td
 {
-	border:1px solid black;
+	border:0px solid black;
 	border-collapse: collapse;
 }
 </style>
 
 
 
-<table cellspacing="0" width=100% border=1 height="50%">
+<table cellspacing="0" width=100% border=0 height="50%">
 <tr height="50%">
- <td width="60%" height="50%">
-  <table width="100%" height="50%" cellspacing="0">
+ <td width= height="50%">
+  <table width="90%" height="50%" cellspacing="0">
    <tr height="2%">
      <td>Tag No</td>
      <td>Rev#</td>
@@ -59,10 +59,10 @@ table, th, td
 	<td colspan="3">
 	<table width="100px">
 	<tr><td> </td> <td>USA$ </td> <td>Canada$</td><td>Mexico$</td></tr>
-	<tr><td><?php echo $this->Form->input('hvl',array('label'=>'HVL','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td><?php echo $this->Form->input('HVL/CC',array('label'=>'HVL/CC','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td><?php echo $this->Form->input('Metal Clad',array('label'=>'Metal Clad','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
-	<tr><td><?php echo $this->Form->input('MVMCC',array('label'=>'MVMCC','type'=>'checkbox'));?> </td> <td> </td> <td></td><td></td></tr>
+	<tr><td><?php echo $this->Form->input('hvl',array('label'=>'HVL','type'=>'checkbox'));?> </td><td><?php echo $this->request->data['Revision']['hvlusa']; ?> </td> <td> <?php echo $this->request->data['Revision']['hvlcanada']; ?> </td><td><?php echo $this->request->data['Revision']['hvlmexico']; ?>  </td></tr>
+	<tr><td><?php echo $this->Form->input('HVL/CC',array('label'=>'HVL/CC','type'=>'checkbox'));?> </td> <td><?php echo $this->request->data['Revision']['hvlccusa']; ?> 	 </td> <td><?php echo $this->request->data['Revision']['hvlccanada']; ?>  </td><td> <?php echo $this->request->data['Revision']['hvlccmexico']; ?> </td></tr>
+	<tr><td><?php echo $this->Form->input('Metal Clad',array('label'=>'Metal Clad','type'=>'checkbox'));?> </td> <td><?php echo $this->request->data['Revision']['metalusa']; ?>  </td> <td> <?php echo $this->request->data['Revision']['metalcanada']; ?> </td><td><?php echo $this->request->data['Revision']['metalmexico']; ?> </td></tr>
+	<tr><td><?php echo $this->Form->input('MVMCC',array('label'=>'MVMCC','type'=>'checkbox'));?> </td> <td><?php echo $this->request->data['Revision']['mvusa']; ?>  </td> <td> <?php echo $this->request->data['Revision']['mvcanada']; ?> </td><td><?php echo $this->request->data['Revision']['mvmexico']; ?>  </td></tr>
 	</table>
 	</td>
   </tr>
@@ -74,8 +74,9 @@ table, th, td
     <tr><td>Material:  </td><td> <?php echo $this->Form->input('material',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
     <tr><td>Labor : </td><td> <?php echo $this->Form->input('LABOR',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
     <tr><td>Engineering:  </td> <td><?php echo $this->Form->input('Engineering',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
-<tr><td colspan="4">Install Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ <?php  $var= $this->request->data['Revision']['material']+ $this->request->data['Revision']['Engineering']+ $this->request->data['Revision']['LABOR'];                                                                 
-        echo $var;?> </td></tr>
+<tr><td>Install Cost</td><td> <?php echo $this->Form->input('installcost',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?> </td></tr>
+    <tr><td> Tag Member: </td><td><?php echo $this->Form->input('tagmembername',array('div'=>false,'label'=>false,'style'=>'width:130px;height:20px;'));?> </td></tr>
+    <tr><td> Price Expires: </td><td><?php echo $this->Form->input('expprice',array('div'=>false,'label'=>false,'style'=>'width:90px;height:20px;'));?> </td></tr>
   </table>
  </td>
 </tr>
