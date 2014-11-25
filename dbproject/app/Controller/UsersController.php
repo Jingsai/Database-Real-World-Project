@@ -94,18 +94,35 @@ class UsersController extends AppController {
                         )
                     )
             );*/
+        $maxid = 0;
+        $tagmember_ids = $this->Tagmembername->find('all');
+        foreach ($tagmember_ids as $tagmember_id) {
+            if ( $maxid < $tagmember_id['Tagmembername']['id'] );
+            {
+                $maxid = $tagmember_id['Tagmembername']['id'];
+            }
+        }
+        $maxid = $maxid + 1;
 
         if ($this->request->is('post')) {
             if (empty($this->request->data['User']['group'])) {
                 $this->Session->setFlash(__('You must select at least one group'));
                 return false;
             }
+            
+
             $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']); 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 if (in_array("tagmembers", json_decode($this->request->data['User']['group'])))
                 {
-                    $this->Tagmembername->save(array('Tagmembername'=>array('Name'=>$this->request->data['User']['username'])));
+                    $isuser = $this->Tagmembername->findByName($this->request->data['User']['username']);
+                    if (empty($isuser))
+                    {
+                        $this->Tagmembername->save(array('Tagmembername'=>array(
+                            'Name'=>$this->request->data['User']['username'],
+                            'id'=>$maxid)));
+                    }
                 }
             //if ($this->User->saveAll($this->request->data,array('atomic' => false, 'deep' =>true))) {
                 $this->Session->setFlash(__('The user has been created'));
@@ -130,13 +147,29 @@ class UsersController extends AppController {
                 $this->redirect(array('action'=>'index'));
             }
  
+            $maxid = 0;
+            $tagmember_ids = $this->Tagmembername->find('all');
+            foreach ($tagmember_ids as $tagmember_id) {
+                if ( $maxid < $tagmember_id['Tagmembername']['id'] );
+                {
+                    $maxid = $tagmember_id['Tagmembername']['id'];
+                }
+            }
+            $maxid = $maxid + 1;
+
             if ($this->request->is('post') || $this->request->is('put')) {
                 $this->User->id = $id;
                 $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']);
                 if ($this->User->save($this->request->data)) {
                      if (in_array("tagmembers", json_decode($this->request->data['User']['group'])))
                 {
-                    $this->Tagmembername->save(array('Tagmembername'=>array('Name'=>$this->request->data['User']['username'])));
+                    $isuser = $this->Tagmembername->findByName($this->request->data['User']['username']);
+                    if (empty($isuser))
+                    {
+                        $this->Tagmembername->save(array('Tagmembername'=>array(
+                            'Name'=>$this->request->data['User']['username'],
+                            'id'=>$maxid)));
+                    }
                 }
                     $this->Session->setFlash(__('The user has been updated'));
                     $this->redirect(array('action' => 'index'));

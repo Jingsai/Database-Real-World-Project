@@ -114,3 +114,8 @@ rename table APPLIED FO to appliedfos
 
 --modified the data inside to make test all possible displays
 UPDATE `appliedfos` SET `no`=5500 WHERE no=5678;
+ 
+
+==============================
+for inserting tag test:
+INSERT INTO `revisions`(`no`, `rev`, `tagmembername_id`, `revision_obsolete`) VALUES (9999, 1, 15, 1)

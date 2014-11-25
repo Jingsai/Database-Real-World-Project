@@ -56,13 +56,12 @@
     <tr>
     <td><?php echo $this->Form->input('no', array('style' => 'width:55px')); ?></td>
     <td><?php echo $this->Form->input('Rev',array('style' => 'width:20px')); ?></td>	
-    <!-- <td><?php echo $this->Form->input('DATE', array('style' => 'width:50px')); ?></td>  -->
     <td><?php echo $this->Form->input('Description', array('style' => 'width:50px')); ?></td>
     <td><?php echo $this->Form->input('SubCategory', array('style' => 'width:50px')); ?></td>
-	<td><?php echo $this->Form->input('hvl', array('style' => 'width:50px')); ?></td> 
+<!--	<td><?php echo $this->Form->input('hvl', array('style' => 'width:50px')); ?></td> 
     <td><?php echo $this->Form->input('HVL/CC', array('style' => 'width:50px')); ?></td> 
     <td><?php echo $this->Form->input('Metal Clad', array('style' => 'width:50px')); ?></td> 
-    <td><?php echo $this->Form->input('MVMCC', array('style' => 'width:50px')); ?></td> 
+    <td><?php echo $this->Form->input('MVMCC', array('style' => 'width:50px')); ?></td> -->
     <td><?php echo $this->Form->input('Notes', array('style' => 'width:50px')); ?></td> 
     <td><?php echo $this->Form->input('INST COST', array('style' => 'width:50px')); ?></td> 
     <td><?php echo $this->Form->input('Price Note', array('style' => 'width:50px')); ?></td> 
