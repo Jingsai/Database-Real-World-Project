@@ -108,4 +108,9 @@ Alter TABLE tagmembernames ADD id INT primary key auto_increment
 alter table tagmembernames change `TAG Member` id INT
 alter table revisions change `TAG Member` tagmembername_id INT
 alter table revisions change `revision obsolete` revision_obsolete char(1)
+===================================================================
+Filmon 11/24/2014 10:19pm
+rename table APPLIED FO to appliedfos
 
+--modified the data inside to make test all possible displays
+UPDATE `appliedfos` SET `no`=5500 WHERE no=5678;

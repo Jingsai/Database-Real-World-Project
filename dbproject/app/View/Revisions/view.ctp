@@ -12,8 +12,14 @@ table, th, td
 }
 </style>
 
-
-
+<p align="right">
+<?php
+                echo $this->Html->link(
+                    'Make Revision to Tag',
+                    array('action' => 'edit', $this->request->data['Revision']['id']));
+            ?>
+ 
+</p>
 <table cellspacing="0" width=100% border=0 height="50%">
 <tr height="50%">
  <td width= height="50%">
@@ -64,7 +70,15 @@ table, th, td
 	<tr><td><?php echo $this->Form->input('Metal Clad',array('label'=>'Metal Clad','type'=>'checkbox'));?> </td> <td><?php echo $this->request->data['Revision']['metalusa']; ?>  </td> <td> <?php echo $this->request->data['Revision']['metalcanada']; ?> </td><td><?php echo $this->request->data['Revision']['metalmexico']; ?> </td></tr>
 	<tr><td><?php echo $this->Form->input('MVMCC',array('label'=>'MVMCC','type'=>'checkbox'));?> </td> <td><?php echo $this->request->data['Revision']['mvusa']; ?>  </td> <td> <?php echo $this->request->data['Revision']['mvcanada']; ?> </td><td><?php echo $this->request->data['Revision']['mvmexico']; ?>  </td></tr>
 	</table>
+	<table>
+	<tr><td>Tag Number</td><td>FO Number Applied To</td><td>Notes to Next Engineer</td></tr>
+	</table>
+	<table>
+	<tr><td> <?php echo $this->Form->input('no',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;'));?></td><td> <?php echo $this->Form->input('appliedfono',array('div'=>false,'label'=>false,'style'=>'width:130px;height:20px;'));?></td><td> <?php echo $this->Form->input('notesengineer',array('div'=>false,'label'=>false,'style'=>'width:100px;height:20px;'));?></td><td></td></tr>
+	</table>
+
 	</td>
+	<!--<td colspan="4"><?php echo $this->Form->input('revision_absolete',array('label'=>false,'type'=>'checkbox'));?>Click Box to Make Tag Permanently Absolete </td>-->
   </tr>
   </table>
  </td>

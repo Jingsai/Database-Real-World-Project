@@ -7,7 +7,7 @@ class RevisionsController extends AppController{
 
 	public $uses = array(
 			'Revision',
-			'Tagnumber','Producttype','Country','Tagmembername');
+			'Tagnumber','Producttype','Country','Tagmembername','Appliedfo');
 	
 
 	public $paginate = array(
@@ -70,6 +70,7 @@ class RevisionsController extends AppController{
                 $tagnumbers = $this->Tagnumber->findByNo($no);
 		$countries=$this->Country->find('all');
 		$products=$this->Producttype->find('all');
+		$applied=$this->Appliedfo->findByNo($no);
 		if(empty($tagnumbers))
 		{	
              		$revisions['Revision']['Description'] = ""; 
@@ -97,18 +98,23 @@ class RevisionsController extends AppController{
 		$revisions['Revision']['mvusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('MVMCC');
 		$revisions['Revision']['mvcanada']=$revisions['Revision']['installcost']*$countries[0]['Country']['Canada']*$this->getProMulti('MVMCC');
 		$revisions['Revision']['mvmexico']=$revisions['Revision']['installcost']*$countries[0]['Country']['Mexico']*$this->getProMulti('MVMCC');
+		$revisions['Revision']['appliedfono']=$applied['Appliedfo']['FO Number Applied To'];
+		$revisions['Revision']['notesengineer']=$applied['Appliedfo']['Notes to Next Engineer'];
 	//	print_r($revisions['Revision']['installcost']*$countries['Country']['USA']*$this->getProMulti('HVL'));	
 		//print_r($revisions);
 		//print_r($this->Revision->findByNo(5660));
                 //print "<br>";
 		//print_r($tagnumbers);
-		$revisions['Revision']['tagmembername']=$this->Tagmembername->findById($revisions['Revision']['tagmembername_id'])['Tagmembername']['Name'];
+		$tag=$this->Tagmembername->findById($revisions['Revision']['tagmembername_id']);
+		$revisions['Revision']['tagmembername']=$tag['Tagmembername']['Name'];
 		App::uses('CakeTime','Utility');
 		$edate=$revisions['Revision']['DATE'];
 		$emonth=$revisions['Revision']['price expiration'];
 
 		$revisions['Revision']['DATE']=CakeTime::format($edate);
 		$revisions['Revision']['expprice']=CakeTime::format($edate.'+'.$emonth.'months');
+		
+		
 	   if (!$revisions) {
             throw new NotFoundException(__('Invalid post'));
         }
