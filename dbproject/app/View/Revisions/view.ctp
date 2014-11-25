@@ -13,11 +13,14 @@ table, th, td
 </style>
 
 <p align="right">
+<?php $group = json_decode(AuthComponent::user('group'));
+    if (AuthComponent::user('id') && in_array("tagmembers", $group)): ?> 
 <?php
                 echo $this->Html->link(
                     'Make Revision to Tag',
                     array('action' => 'edit', $this->request->data['Revision']['id'],$this->request->data['Revision']['no']));
             ?>
+<?php endif ?>
  
 </p>
 <table cellspacing="0" width=100% border=0 height="50%">
@@ -85,10 +88,14 @@ table, th, td
  <td width="0%"></td>
  <td width="50%">
   <table width="100%" height="20%">
+    <?php $group = json_decode(AuthComponent::user('group'));
+    if (AuthComponent::user('id') && (in_array("tagmembers", $group) || in_array("oe", $group))): ?> 
     <tr><td>Material:  </td><td> <?php echo $this->Form->input('material',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
     <tr><td>Labor : </td><td> <?php echo $this->Form->input('LABOR',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
     <tr><td>Engineering:  </td> <td><?php echo $this->Form->input('Engineering',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?></td></tr>
 <tr><td>Install Cost</td><td> <?php echo $this->Form->input('installcost',array('div'=>false,'label'=>false,'style'=>'width:70px;height:20px;'));?> </td></tr>
+<?php endif ?>
+
     <tr><td> Tag Member: </td><td><?php echo $this->Form->input('tagmembername',array('div'=>false,'label'=>false,'style'=>'width:130px;height:20px;'));?> </td></tr>
     <tr><td> Price Expires: </td><td><?php echo $this->Form->input('expprice',array('div'=>false,'label'=>false,'style'=>'width:90px;height:20px;'));?> </td></tr>
   </table>
