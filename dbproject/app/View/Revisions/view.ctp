@@ -110,3 +110,8 @@ table, th, td
 </div>  
 <?php echo $this->Html->script('print')?>
 
+<?php
+echo $this->Form->create('Attachment');
+echo $this->Form->input('Attachments',array('type'=>'file','label'=>false));
+echo $this->Form->end("Add Attachment");
+?>

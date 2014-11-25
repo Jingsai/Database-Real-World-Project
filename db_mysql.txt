@@ -119,3 +119,12 @@ UPDATE `appliedfos` SET `no`=5500 WHERE no=5678;
 ==============================
 for inserting tag test:
 INSERT INTO `revisions`(`no`, `rev`, `tagmembername_id`, `revision_obsolete`) VALUES (9999, 1, 15, 1)
+
+
+==================================================================================================
+Filmon 2014/25/11 3:19 pm
+
+rename Attachments to attachments
+rename its column TAGS to tag
+--add auto increment column
+alter table attachments add column id int auto_increment primary key;

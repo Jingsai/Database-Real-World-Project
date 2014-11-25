@@ -4,7 +4,7 @@ class RevisionsController extends AppController{
 	public $components=array('Search.Prg','Paginator');
 	public $uses = array(
 			'Revision',
-			'Tagnumber','Producttype','Country','Tagmembername','Appliedfo');
+			'Tagnumber','Producttype','Country','Tagmembername','Appliedfo','Attachment');
 	
 	public $paginate = array(
 		'Revision' => array(
@@ -157,6 +157,25 @@ class RevisionsController extends AppController{
 			//print_r($this->request->data = $tagnumbers);
 		} 
 	//	$this->set('producttypes',$products);
+
+//THIS IS FOR ADDING ATTACHMENT===============================================================
+               //print_r( $this->request->data['Attachment']['Attachments']);
+                $this->request->data['Attachment']['tag']=$revisions['Revision']['no'];
+              // print_r( $this->request->data['Attachment']['tag']);
+                //return true;
+                if ($this->request->is('post'))
+                {
+
+                        $this->Attachment->create();
+                        if ($this->Attachment->save($this->request->data))
+                        {
+                                $this->Session->setFlash(__('Your post has been saved.'));
+                                return $this->redirect(array('action' => 'index'));
+                        }
+                $this->Session->setFlash(__('Unable to add your post.'));
+                }
+
+//ADDING ATTACHMENT FINISHES HERE
 		return $revisions;
 		
 	}
