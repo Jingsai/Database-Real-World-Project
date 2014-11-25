@@ -19,34 +19,10 @@ class RevisionsController extends AppController{
 			'maxLimit' => 100
 		)
         );
+	public function add()
+	{
 	
-        public function add()
-        {
-                //print_r(AuthComponent::user('username'));
-                //print_r("<br>");
-                $tempuserdata=$this->Tagmembername->findByName(AuthComponent::user('username'));
-                //print_r($tempuserdata['Tagmembername']['id']);
-                $this->request->data['Revision']['tagmembername_id']=$tempuserdata['Tagmembername']['id'];
-                //return true;
-                if ($this->request->is('post'))
-                {
-
-                        $this->Revision->create();
-                        if ($this->Revision->save($this->request->data))
-                        {
-                                $this->Session->setFlash(__('Your post has been saved.'));
-                                return $this->redirect(array('action' => 'index'));
-                        }
-                $this->Session->setFlash(__('Unable to add your post.'));
-                }
-
-        }
-
-
-
-
-
-
+	}
 	public function index()
 	{
 	
