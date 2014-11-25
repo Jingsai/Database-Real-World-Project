@@ -98,7 +98,6 @@ class RevisionsController extends AppController{
 		{	
              		$revisions['Revision']['Description'] = $tagnumbers['Tagnumber']['DESCRIPTION']; 
 	       		$revisions['Revision']['SubCategory'] = $tagnumbers['Tagnumber']['SubCategory'];	
-			
 		}
 		$revisions['Revision']['installcost']=$revisions['Revision']['material']+$revisions['Revision']['LABOR']+$revisions['Revision']['Engineering']; 
 		$revisions['Revision']['hvlusa']=$revisions['Revision']['installcost']*$countries[0]['Country']['USA']*$this->getProMulti('HVL');
@@ -161,27 +160,22 @@ class RevisionsController extends AppController{
 			//print_r($this->request->data = $tagnumbers);
 		} 
 	//	$this->set('producttypes',$products);
-		return $revisions;
 		
 	}
-         public function edit($id=null,$no=null) 
+         public function edit($id=null) 
 	{	
-		if($id!=NULL)
-		{
-			$editdata=$this->view($id,$no);
-		}
-		else
-		{
 			
-		}
+		//$this->set('revisions',$this->Revision->findByNo(5500));
+		if(!$id)
+			throw new NotFoundException(_('Invalid post'));
 
+		$revisions = $this->Revision->findById($id);
+		if(!$revisions)
+			throw new NotFoundException(_('Invalid Post'));
 
 		if ($this->request->is(array('post','put')))
 		{
-			print_r($this->request->data);
-                        return true;
 			$this->Revision->id=$id;			
-			
 			if($this->Revision->save($this->request->data))
 			{
 				
@@ -197,7 +191,7 @@ class RevisionsController extends AppController{
 		}
 		if (!$this->request->data )
 		{
-		 	$this->request->data = $editdata;
+		 	$this->request->data = $revisions;
 		} 
         }
 //XIXXI

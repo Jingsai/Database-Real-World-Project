@@ -16,7 +16,7 @@ table, th, td
 <?php
                 echo $this->Html->link(
                     'Make Revision to Tag',
-                    array('action' => 'edit', $this->request->data['Revision']['id']));
+                    array('action' => 'edit', $this->request->data['Revision']['id'],$this->request->data['Revision']['no']));
             ?>
  
 </p>
@@ -44,7 +44,7 @@ table, th, td
 	<td colspan="2"> Tag Description: </td>
   </tr>
   <tr>
-     <td colspan="8"><?php echo $this->Form->input('DESCRIPTION',array('div'=>false,'label'=>false,'style'=>'width:700px;height:20px;'));?>
+     <td colspan="8"><?php echo $this->Form->input('Description',array('div'=>false,'label'=>false,'style'=>'width:700px;height:20px;'));?>
 </td>
    </tr>
   <tr>
