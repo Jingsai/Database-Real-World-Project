@@ -13,10 +13,11 @@
 <table >
     <tr>
         <th>Id</th>
-	   <th>No</th>
+	    <th>Name</th>
+        <th>No</th>
         <th>Rev</th>
         <th>Date</th>
-	   <th>Obsolete</th>
+	    <th>Obsolete</th>
         <th>Action</th>
     </tr>
 
@@ -25,6 +26,7 @@
     <?php foreach ($revisions as $revision): ?>
 	<tr>
         <td><?php echo $revision['Revision']['id']; ?></td>
+        <td><?php echo $revision['Tagmembername']['Name']; ?></td>
         <td><?php echo $revision['Revision']['no']; ?></td>
         <td><?php echo $revision['Revision']['rev'];?></td>
         <td><?php echo $revision['Revision']['DATE'];?></td> 
@@ -59,6 +61,8 @@
     
     echo $this->Form->hidden('id');   
 ?>
+<?php $group = json_decode(AuthComponent::user('group')); ?>
+<?php if(in_array("tagmembers",$group) || in_array("oe",$group)): ?>
 <table>
     <tr>
     <td><?php echo $this->Form->input('no', array('style' => 'width:55px')); ?></td>
@@ -81,6 +85,7 @@
     echo $this->Form->submit(__('Submit'));
     echo $this->Form->end();
 ?>
+<?php endif ?>
 
 <?php echo $this->Paginator->pagination(array('div' => 'pagination pagination-centered')); ?>
 
