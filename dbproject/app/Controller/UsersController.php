@@ -1,6 +1,6 @@
 <?php
 class UsersController extends AppController {
-    var $uses = array('User','Log');
+    var $uses = array('User','Log', 'Tagmembername');
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
@@ -103,6 +103,10 @@ class UsersController extends AppController {
             $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']); 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
+                if (in_array("tagmembers", json_decode($this->request->data['User']['group'])))
+                {
+                    $this->Tagmembername->save(array('Tagmembername'=>array('Name'=>$this->request->data['User']['username'])));
+                }
             //if ($this->User->saveAll($this->request->data,array('atomic' => false, 'deep' =>true))) {
                 $this->Session->setFlash(__('The user has been created'));
                // print_r(here);
@@ -130,6 +134,10 @@ class UsersController extends AppController {
                 $this->User->id = $id;
                 $this->request->data['User']['group'] = json_encode($this->request->data['User']['group']);
                 if ($this->User->save($this->request->data)) {
+                     if (in_array("tagmembers", json_decode($this->request->data['User']['group'])))
+                {
+                    $this->Tagmembername->save(array('Tagmembername'=>array('Name'=>$this->request->data['User']['username'])));
+                }
                     $this->Session->setFlash(__('The user has been updated'));
                     $this->redirect(array('action' => 'index'));
                 }else{

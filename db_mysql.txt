@@ -86,5 +86,10 @@ rename table 'Country & Adjustment'  to countries
 Alter TABLE countries  ADD id INT primary key auto_increment
 
 
+rename table `TAG Member Names`  to tagmembernames
+Alter TABLE tagmembernames ADD id INT primary key auto_increment
+alter table tagmembernames change `TAG Member` id INT
+alter table revisions change `TAG Member` tagmembername_id INT
+alter table revisions change `revision obsolete` revision_obsolete char(1)
 
 

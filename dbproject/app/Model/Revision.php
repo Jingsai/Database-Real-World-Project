@@ -1,8 +1,10 @@
 <?php
 class Revision extends AppModel
 {
-
-
+	//public $actsAs = array('Containable');
+	public $belongsTo = array('Tagmembername');
+    //public $belongsTo = array('Tagmembername'=>array('foreignkey'=>'Tagmembername.TAG_Member'));
+/*
 	public $actsAs = array('Search.Searchable');
 
 	public $uses = array('Revision');
@@ -43,6 +45,6 @@ class Revision extends AppModel
         )
     );
 
-
+*/
 
 }
