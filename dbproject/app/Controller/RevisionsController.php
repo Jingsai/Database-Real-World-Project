@@ -185,12 +185,10 @@ class RevisionsController extends AppController{
 		
 		$editdata=$this->view($id,$no);
 		//print_r($editdata);
-        
-        
-
+     
 		if ($this->request->is(array('post','put')))
 		{
-			$fields = array('no', 'rev', 'Lead Time', 'material', 'INST COST', 'price expiration', 'Engineering','LABOR', 'expprice');
+			$fields = array('no', 'rev', 'Lead Time', 'material', 'INST COST', 'price expiration', 'Engineering','LABOR', 'expprice', 'hvl', 'HVL/CC','Metal Clad','MVMCC');
 			//print_r($this->request->data);
             $rdata = array('Revision'=>array());
             $ischange = 0;
@@ -204,7 +202,11 @@ class RevisionsController extends AppController{
             		}
             	}   
             }
-            //print_r($rdata);
+            /*$rdata['Revision']['hvl'] = $this->request->data['Revision']['hvl'];
+            $rdata['Revision']['HVL/CC'] = $this->request->data['Revision']['HVL/CC'];
+            $rdata['Revision']['Metal Clad'] = $this->request->data['Revision']['Metal Clad'];
+            $rdata['Revision']['MVMCC'] = $this->request->data['Revision']['MVMCC'];*/
+           // print_r($rdata);
             //print_r("<br>");
 
            // echo $ischange;
@@ -221,19 +223,17 @@ class RevisionsController extends AppController{
                         //echo $old_revision['Revision']['rev'];
             		}
            		}
+           		 $rdata['Revision']['INST COST'] = $rdata['Revision']['material']+$rdata['Revision']['LABOR']+$rdata['Revision']['Engineering'];
             }
-            $rdata['Revision']['INST COST'] = $rdata['Revision']['material']+$rdata['Revision']['LABOR']+$rdata['Revision']['Engineering'];
+           /* $rdata['Revision']['INST COST'] = $rdata['Revision']['material']+$rdata['Revision']['LABOR']+$rdata['Revision']['Engineering'];*/
 
             App::uses('CakeTime','Utility');
             $rdata['Revision']['DATE'] = CakeTime::format('+0 days', '%Y-%m-%d %H:%M:%S');
-            //echo $rdata['Revision']['DATE'];
-            //return $time;
-
-            //print_r($old_revision);
-           // print_r("<br>");
+            $authname = $this->Tagmembername->findByName(AuthComponent::user('username'));
+        	$rdata['Revision']['tagmembername_id'] = $authname['Tagmembername']['id'];
+        	//print_r("<br>");
             //print_r($rdata);
-            //echo $this->Revision->id;
-           // return true;
+           //return true;
              $this->Revision->create();
              $this->Revision->id = false;
            if ($this->Revision->save($rdata)) {
