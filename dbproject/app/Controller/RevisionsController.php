@@ -57,8 +57,9 @@ class RevisionsController extends AppController{
 			    	                  'Tagmembername.Name LIKE' => $Name,
                                       'Revision.no LIKE' => $no,
                                       'Revision.rev LIKE' => $rev)));
+		
+			 $this->set('revisions',$datas);
 
-			$this->set('revisions',$datas);	
 		}
 	}
 	
