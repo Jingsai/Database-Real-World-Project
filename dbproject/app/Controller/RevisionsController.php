@@ -44,27 +44,19 @@ class RevisionsController extends AppController{
 			$no = $params['Revision']['no'];
 			$Obsolete = $params['Revision']['Obsolete'];
 			$Name = $params['Revision']['Name'];
+			$rev = $params['Revision']['Rev'];
 
-			if (!empty($Obsolete) && !empty($Name))
-			{
-				$datas=$this->Revision->find('all', array(
-					'contain' => array('Tagmembername'),
-			     'conditions' => array('Revision.revision_obsolete' => $params['Revision']['Obsolete'], 
-			    	                    'Tagmembername.Name' => $params['Revision']['Name'])));
-			}
-			else if (!empty($Obsolete) && !empty($no))
-			{
-				$datas=$this->Revision->find('all', array(
-					'contain' => array('Tagmembername'),
-			     'conditions' => array('Revision.revision_obsolete' => $params['Revision']['Obsolete'], 
-			     	                   'Revision.no' => $params['Revision']['no'])));
-			}
-			else if (!empty($no))
-			{
-				$datas=$this->Revision->find('all', array(
-					'contain' => array('Tagmembername'),
-			     'conditions' => array('Revision.no' => $params['Revision']['no'])));
-			}
+			if (empty($no) && $no !== '0') { $no = '%'; }
+			if (empty($Obsolete) && $Obsolete !== '0') { $Obsolete = '%'; }
+			if (empty($Name) && $Name !== '0') { $Name = '%'; }
+			if (empty($rev) && $rev !== '0') { $rev = '%'; }
+
+			$datas=$this->Revision->find('all', array(
+				'contain' => array('Tagmembername'),
+			    'conditions' => array('Revision.revision_obsolete LIKE' => $Obsolete, 
+			    	                  'Tagmembername.Name LIKE' => $Name,
+                                      'Revision.no LIKE' => $no,
+                                      'Revision.rev LIKE' => $rev)));
 
 			$this->set('revisions',$datas);	
 		}
