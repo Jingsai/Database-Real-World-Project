@@ -169,11 +169,14 @@ class RevisionsController extends AppController{
      
 		if ($this->request->is(array('post','put')))
 		{
-			$fields = array('no', 'rev', 'Lead Time', 'material', 'INST COST', 'price expiration', 'Engineering','LABOR', 'expprice', 'hvl', 'HVL/CC','Metal Clad','MVMCC');
+			$fields = array('no', 'rev', 'Lead Time', 'material', 'INST COST', 'price expiration', 'Engineering','LABOR', 'expprice', 'hvl', 'HVL/CC','Metal Clad','MVMCC','appliedfono','notesengineer');
 			//print_r($this->request->data);
             $rdata = array('Revision'=>array());
+            $adata = array('Appliedfo' => array());
             $ischange = 0;
+            $isappfo =0;
             foreach ($this->request->data['Revision'] as $key => $val){
+            	if($key !='appliedfono' && $key!= 'notesengineer'){
             	if(in_array($key, $fields) && $editdata['Revision'][$key]!= $val){
             		$ischange ++;
             		if ($key != 'expprice') {
@@ -181,16 +184,41 @@ class RevisionsController extends AppController{
             		}else{
             			$rdata['Revision']['price expiration'] = $val;
             		}
-            	}   
+            	}
+            	}else{
+            		if($editdata['Revision'][$key]!= $val){
+                        $isappfo = 0;
+                        if ($key == 'appliedfono') {
+                        	$adata['Appliedfo']['FO Number Applied To'] = $val;
+                        }
+                        if ($key == 'notesengineer') {
+                        	$adata['Appliedfo']['Notes to Next Engineer'] = $val;
+                        }
+                        
+            		}
+            	} 
             }
-            /*$rdata['Revision']['hvl'] = $this->request->data['Revision']['hvl'];
-            $rdata['Revision']['HVL/CC'] = $this->request->data['Revision']['HVL/CC'];
-            $rdata['Revision']['Metal Clad'] = $this->request->data['Revision']['Metal Clad'];
-            $rdata['Revision']['MVMCC'] = $this->request->data['Revision']['MVMCC'];*/
-           // print_r($rdata);
             //print_r("<br>");
-
-           // echo $ischange;
+            if (!empty($adata['Appliedfo'])){
+            	$appfos = $this->Appliedfo->findByNo($this->request->data['Revision']['no']);
+            	//print_r($appfos);
+            	$adata['Appliedfo']['NO'] = $this->request->data['Revision']['no'];
+            	//if($adata is empty): add; else: update;
+            	if(empty($adata)){
+                	$maxid = 0;
+       	 	    	$appliedfo_ids = $this->Appliedfo->find('all');
+       		    	foreach ($appliedfo_ids as $appliedfo_id) {
+           		    	if ($maxid < $appliedfo_id['Appliedfo']['ID']);{
+                	    	$maxid = $appliedfo_id['Appliedfo']['ID'];
+            	    	}
+        	    	}
+                	$maxid = $maxid + 1;
+                	$adata['Appliedfo']['ID'] = $maxid;
+                }else{
+                	$this->Appliedfo->id = $appfos['Appliedfo']['ID'];
+                }
+            }
+           
             if ($ischange !=0 ) {
 				$old_revision = $this->Revision->findById($id);
                 foreach ($old_revision['Revision'] as $key => $val) {
@@ -212,12 +240,16 @@ class RevisionsController extends AppController{
             $rdata['Revision']['DATE'] = CakeTime::format('+0 days', '%Y-%m-%d %H:%M:%S');
             $authname = $this->Tagmembername->findByName(AuthComponent::user('username'));
         	$rdata['Revision']['tagmembername_id'] = $authname['Tagmembername']['id'];
-        	//print_r("<br>");
-            //print_r($rdata);
-           //return true;
+
              $this->Revision->create();
              $this->Revision->id = false;
+
+
+          
+            
            if ($this->Revision->save($rdata)) {
+           	   //$this->Appliedfo->create();
+           	    $this->Appliedfo->save($adata);
             	$this->Session->setFlash(__('The tag has been updated'));
             	return $this->redirect(array('action' => 'index'));
             }else
